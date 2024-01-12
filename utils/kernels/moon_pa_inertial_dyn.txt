@@ -1,0 +1,76 @@
+KPL/FK
+
+   SPICE Custom Lunar Reference Frame Specification Kernel
+   =====================================================================
+
+   Original file name:                   moon_pa_inertial.tf
+   Creation date:                        2023/09/30 - 3:47 PM JST
+   Created by:                           Alessio Deroberetis
+
+   Version description:
+
+   Custom frame definition, in order to simulate moon orbits
+
+
+   Frames Specified by this Kernel
+   =====================================================================
+
+   Frame Name                  Relative to          Type   Frame ID
+   -------------------------   -----------------    -----  --------
+   MOON_PA_INERTIAL            ICRF/J2000           TK     666601
+
+
+   Description
+   =====================================================================
+   Define an Inertial Frame centered in the Moon with the axis oriented
+   as the Moon PA frame axes considered at time J2000 (0 seconds past 
+   J2000).
+
+
+   References
+   =====================================================================
+
+   [1]  Ryan S. Park, et al, "The JPL Planetary and Lunar Ephemerides
+        DE440 and DE441," The Astronomical Journal, Volume 161, Number 3.
+        2021 AJ 161 105.
+
+        URL:
+
+           https://iopscience.iop.org/article/10.3847/1538-3881/abd414/meta
+
+   [2]  Archinal, B.A., A'Hearn, M.F., Bowell, E., Conrad, A.,
+        Consolmagno, G.J., Courtin, R., Fukushima, T.,
+        Hestroffer, D., Hilton, J.L., Krasinsky, G.A.,
+        Neumann, G., Oberst, J., Seidelmann, P.K., Stooke, P.,
+        Tholen, D.J., Thomas, P.C., and Williams, I.P.
+        "Report of the IAU Working Group on Cartographic Coordinates
+        and Rotational Elements: 2009."
+
+   [3]  Roncoli, R. (2005). "Lunar Constants and Models Document,"
+        JPL D-32296.
+
+
+   Frame Specifications
+   =====================================================================
+
+   \begindata
+
+      FRAME_MOON_PA_INERTIAL          = 1666601
+      FRAME_1666601_NAME              = 'MOON_PA_INERTIAL'
+      FRAME_1666601_CLASS             = 5
+      FRAME_1666601_CLASS_ID          = 1666601
+      FRAME_1666601_CENTER            = 301
+
+      FRAME_1666601_DEF_STYLE         =  'PARAMETERIZED'
+      FRAME_1666601_FAMILY            =  'PRODUCT'
+      FRAME_1666601_RELATIVE          =  'J2000'
+      FRAME_1666601_FREEZE_EPOCH      =  @2000-01-01/12:00.000
+      FRAME_1666601_FROM_FRAMES       = ( 'J2000' )
+      FRAME_1666601_TO_FRAMES         = ( 'MOON_PA' )
+
+
+
+   \begintext
+
+   =====================================================================
+   End of kernel
