@@ -1,4 +1,4 @@
-function [aTB] = pertTB(t,rSC,TB,et,ref_sys,obs)
+function [aTB] = pertTB(t,rSC,TB,muTB,et,ref_sys,obs)
 % ------------------------------------------------------------------------
 % DESCRIPTION:
 % PERT3B - Compute perturbing acceleration due to third body attraction
@@ -14,6 +14,9 @@ function [aTB] = pertTB(t,rSC,TB,et,ref_sys,obs)
 %                     'MARS BARYCENTER', JUPITER BARYCENTER',
 %                     'SATURN BARYCENTER', 'URANUS BARYCENTER',
 %                     'NEPTUNE BARYCENTER','PLUTO BARYCENTER'.
+%
+%  muTB    [n,1]  -  Gravitational constant of the third-body attractors
+%                    [km^3/s^2]
 %
 %  et      [1,1]  -  Initial time in seconds past J2000 
 %
@@ -44,11 +47,9 @@ function [aTB] = pertTB(t,rSC,TB,et,ref_sys,obs)
 %%% state of the 3B
 nTB = length(TB);
 rTB = zeros(3,nTB);
-muTB = zeros(nTB,1);
 
 for i = 1:nTB
     rTB(:,i) = cspice_spkpos(TB{i},t+et,ref_sys,'NONE',obs);
-    muTB(i) = cspice_bodvrd(TB{i},'GM',1);
 end
 
 rSCNorm = vecnorm(rSC);

@@ -77,9 +77,7 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %------------------------------- FULL ------------------------------------%
 %  - GRAVITY: implement an N-body problem where all the attractor are
 %    treated as point masses. The integration is carried out using the
-%    cartesian state. In this case perturb.n is not used. Allowed observer
-%    bodies are:
-%    - 'SUN'
+%    cartesian state. In this case perturb.n is not used.
 %
 %  - THIRD BODY: In this mode, the list of third bodies given in input is
 %    used to compute the N-body dynamics. Allowed bodies are:
@@ -233,8 +231,8 @@ switch settings.mode
         mu = cspice_bodvrd(ref_sys.obs,'GM',1);
         Rp = mean(cspice_bodvrd(ref_sys.obs,'RADII',3));
         
-        muTB = zeros(length(perturb.TB),1);
-        for i = 1:length(perturb.TB)
+        muTB = zeros(lentgh(perturb.TB),1);
+        for i = 1:nTB
             muTB(i) = cspice_bodvrd(perturb.TB{i},'GM',1);
         end
 
@@ -271,16 +269,8 @@ switch settings.mode
             return
         end
 
-        % compute the gravitational constantants
-        mu = cspice_bodvrd(ref_sys.obs,'GM',1);
-        
-        muTB = zeros(length(perturb.TB),1);
-        for i = 1:zeros(length(perturb.TB),1)
-            muTB(i) = cspice_bodvrd(perturb.TB{i},'GM',1);
-        end
 
-        % integrate using cartesian state
-        [t,y] = ode113(@(t,x) full_rhs(t,x,mu,perturb.TB,muTB,ref_sys.inertial,ref_sys.obs,init_cond.et),init_cond.tSpan,init_cond.x0,options);
+
 
 end
 
