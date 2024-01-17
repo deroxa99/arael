@@ -145,6 +145,10 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %-------------------------------------------------------------------------%
 % CHANGELOG: 2024/10/11 - Official relese for Matlab (Alessio Derobertis)
 %-------------------------------------------------------------------------%
+% TO DO: - check on gravity n
+%        - add 'average' and 'hifi' mode
+%        - add SRP and DRAG
+%-------------------------------------------------------------------------%
 
 %%% add subfolders
 addpath(genpath("arael"))
@@ -218,6 +222,75 @@ end
 switch settings.mode
 
     case 'hifi'
+        % check for allowed observers
+        obs_allowed_approx = {'EARTH';'MOON'};
+
+        if ismember(ref_sys.obs,obs_allowed_approx) ~= 1
+            fprintf('\n')
+            fprintf('ERROR: invalid observer body \n')
+            return
+        end
+
+        % compute the gravitational constant and radius
+        mu = cspice_bodvrd(ref_sys.obs,'GM',1);
+        Rp = mean(cspice_bodvrd(ref_sys.obs,'RADII',3));
+        
+        muTB = zeros(length(perturb.TB),1);
+        for i = 1:length(perturb.TB)
+            muTB(i) = cspice_bodvrd(perturb.TB{i},'GM',1);
+        end
+
+        switch ref_sys.obs
+            
+            case 'EARTH'
+                % check gravity degree
+                if perturb.n > n_hifi(1)
+                    fprintf('ERROR: invalid order of the gravitational field')
+                    return
+                end
+
+                filename = 'arael/data/hifi/Earth/EMG96.txt';
+
+            case 'MOON'
+                % check gravity degree
+                if perturb.n > n_hifi(2)
+                    fprintf('ERROR: invalid order of the gravitational field')
+                    return
+                end
+
+                filename = 'arael/data/hifi/Moon/sha_grgm1200b_sigma.txt';
+        end
+
+        % compute expansion coefficients
+        fprintf('Computing expansion coefficients...\n')
+        [Cnm_mod, Snm_mod] = gravCoeff(filename,perturb.n);
+
+        % Compute legendre polynomial and derivative as functions
+        fprintf('Computing harmonic functions...\n');
+        Pnm_norm = expansionFunc(perturb.n);
+      
+        % GRAVITY
+        g = @(t,r) gravAcc(t,r,mu,Rp,Pnm_norm,Cnm_mod,Snm_mod,perturb.n,ref_sys.inertial,ref_sys.obs,init_cond.et);
+
+        % THIRD-BODY
+        aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,init_cond.et,ref_sys.inertial,ref_sys.obs);
+
+        % PERTURBING ACCELERATION
+        aTOT = @(t,x) g(t,x(1:3)) + aTB(t,x(1:3));
+
+        % INITIAL CONDITION
+        equi0 = car2equi(init_cond.x0,mu);
+
+        % integrate using Equinoctial elements
+        [t,equi_s] = ode113(@(t,equi) hifi_rhs(t,equi,aTOT,mu),init_cond.tSpan,equi0,options);
+
+
+        % convert equinoctial elements into state
+        y = zeros(length(t),6);
+        for i = 1:length(t)
+            y(i,:) = equi2car(equi_s(i,:),mu);
+        end
+
 
     case 'approx'
         % check for allowed observers
@@ -227,6 +300,23 @@ switch settings.mode
             fprintf('\n')
             fprintf('ERROR: invalid observer body \n')
             return
+        end
+
+        switch ref_sys.obs
+
+            case 'EARTH'
+                % check gravity degree
+                if perturb.n > n_approx(1)
+                    fprintf('ERROR: invalid order of the gravitational field')
+                    return
+                end
+
+            case 'MOON'
+                % check gravity degree
+                if perturb.n > n_approx(2)
+                    fprintf('ERROR: invalid order of the gravitational field')
+                    return
+                end
         end
 
         % compute the gravitational constant and radius
@@ -288,7 +378,30 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% ODE FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%% APPROX
+%------------------------------- HIFI ------------------------------------%
+
+function dequi = hifi_rhs(t,equi,acc_ijk,mu)
+
+% convert state into cartesian elements
+x = equi2car(equi,mu);
+
+% convert acceleration in rtn
+r_ijk = x(1:3);
+v_ijk = x(4:6);
+r_vers = r_ijk/norm(r_ijk);
+rv_cross = cross(r_ijk, v_ijk);
+n_vers = rv_cross/norm(rv_cross);
+t_vers = cross(n_vers, r_vers);
+IJK_2_RTN = [r_vers, t_vers, n_vers];
+acc_rtn = IJK_2_RTN * acc_ijk(t,x);
+
+% Compute derivative in equinoctial elements
+dequi = gaussEquinoctial(equi, mu, acc_rtn);
+
+end
+
+%------------------------------ APPROX -----------------------------------%
+
 function dequi = approx_rhs(t,equi,acc_ijk,mu)
 
 % convert state into cartesian elements
@@ -306,11 +419,11 @@ acc_rtn = IJK_2_RTN * acc_ijk(t,x);
 
 % compute variation of equinoctial elements
 dequi = gaussEquinoctial(equi,mu,acc_rtn);
+
 end
 
-%-------------------------------------------------------------------------%
+%------------------------------- FULL ------------------------------------%
 
-%%% FULL
 function [dxdt] = full_rhs(t,x,mu,NB,muNB,ref_sys,obs,et)
 
 % Initialize right-hand-side

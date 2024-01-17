@@ -1,0 +1,15 @@
+% Variables
+n = [10, 25, 50, 60, 75, 100];
+Re = 1.7380e03;
+
+for i = 1:length(n)
+    % Compute functions
+    n_t = n(i);
+    [Pnm_norm, clong, slong, ri] = expansionFunc(n_t, Re);
+    
+    % Save functions
+    folder = 'Sahaquiel/data/preCompFun/preComp2Load';
+    n_str = sprintf('%d', n_t);
+    path = [folder, n_str];
+    save(path, 'Pnm_norm', 'clong', 'slong', 'ri');
+end
