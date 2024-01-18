@@ -14,7 +14,6 @@
 %-------------------------------------------------------------------------%
 % THIS FUNCTION MAKE USE OF THE SPICE TOOLKIT DEVELOPED BY NASA, LEARN
 % MORE ABOUT SPICE AT: https://naif.jpl.nasa.gov/naif/toolkit.html
-% To work properly, locate the 'kernels' folder in the working folder.
 %-------------------------------------------------------------------------%
 % Required toolbox: - symbolic manipulation toolbox
 %-------------------------------------------------------------------------%
