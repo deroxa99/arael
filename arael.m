@@ -167,8 +167,9 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %-------------------------------------------------------------------------%
 % TO DO: - debug MARS and VENUS using GMAT
 %        - check zonal coefficients for MOON,MARS,VENUS
+%        - debug SRP
 %        - add 'average'
-%        - add SRP and DRAG
+%        - add DRAG
 %-------------------------------------------------------------------------%
 
 %%% add subfolders
