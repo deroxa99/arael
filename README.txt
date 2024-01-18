@@ -55,7 +55,9 @@
 %  
 %  - AIR DRAG: not yet implemented
 %
-%  - SOLAR RADIATION PRESSURE: not yet implemented
+%  - SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting
+%    the surface of the satellite. Umbra and penumbra regions due to the
+%    shadow of the primary attractor are also taken into account.
 %
 %------------------------------ APPROX -----------------------------------%
 %  - GRAVITY: implement an approximated model for the gravity field, to 
@@ -76,7 +78,9 @@
 %
 %  - AIR DRAG: not yet implemented
 %
-%  - SOLAR RADIATION PRESSURE: not yet implemented
+%  - SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting
+%    the surface of the satellite. Umbra and penumbra regions due to the
+%    shadow of the primary attractor are also taken into account.
 %
 %----------------------------- AVERAGED ----------------------------------%
 %  - GRAVITY: not yet implemented
@@ -102,7 +106,9 @@
 %
 %  - AIR DRAG: not yet implemented
 %
-%  - SOLAR RADIATION PRESSURE: not yet implemented
+%  - SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting
+%    the surface of the satellite. Shadow is not considered since the S/C
+%    is supposed to orbit the Sun.
 %
 %-------------------------------------------------------------------------%
 % Copyright (c) 2024 Alessio Derobertis

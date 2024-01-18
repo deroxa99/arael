@@ -46,7 +46,9 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %  
 %  - AIR DRAG: not yet implemented
 %
-%  - SOLAR RADIATION PRESSURE: not yet implemented
+%  - SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting
+%    the surface of the satellite. Umbra and penumbra regions due to the
+%    shadow of the primary attractor are also taken into account.
 %
 %------------------------------ APPROX -----------------------------------%
 %  - GRAVITY: implement an approximated model for the gravity field, to 
@@ -67,7 +69,9 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %
 %  - AIR DRAG: not yet implemented
 %
-%  - SOLAR RADIATION PRESSURE: not yet implemented
+%  - SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting
+%    the surface of the satellite. Umbra and penumbra regions due to the
+%    shadow of the primary attractor are also taken into account.
 %
 %----------------------------- AVERAGED ----------------------------------%
 %  - GRAVITY: not yet implemented
@@ -93,7 +97,9 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %
 %  - AIR DRAG: not yet implemented
 %
-%  - SOLAR RADIATION PRESSURE: not yet implemented
+%  - SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting
+%    the surface of the satellite. Shadow is not considered since the S/C
+%    is supposed to orbit the Sun.
 %
 %-------------------------------------------------------------------------%
 % THIS FUNCTION MAKE USE OF THE SPICE TOOLKIT DEVELOPED BY NASA, LEARN
@@ -125,19 +131,30 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %                  .n  [1,1] - Truncation order of the gravity field. In
 %                              case of zonal harmoncis only, will be 
 %                              considered terms up to Jn. 
+%                              Set as 0 or 1 for point mass.
 %                  .TB {n,-} - Cell array containing the names 
 %                              of the third-bodies attractor. In case of
 %                              the N-body problem, those are all the
 %                              attractor except for the central body.
+%                              Leave empty if no third-body perturbation is
+%                              taken into account.
+%                  .SRP [-]  - Set as:
+%                               - 'on': SRP is included
+%                               - 'off': SRP is not included
+%
+% spacecraft [-] - Struct containing: 
+%                  .m [1,1]  - Mass of the S/C [km]
+%                  .A [1,1]  - Cross-section of the S/C [m^2]
+%                  .cR [1,1] - Reflectivity coefficient of the S/C [-]
 %  
 % settings   [-] - Struct containing:
-%                   .mode    [-]   - Select integration mode:
-%                                     - 'hifi': high-fidelity gravity
-%                                     - 'approx': approximated dynamics
-%                                     - 'averaged': averaged dynamics
-%                                     - 'full': n_body problem
-%                   .rel_rol [1,1] - Relative tolerance [-]
-%                   .abs_tol [1,1] - Absolute tolerane [-]
+%                  .mode    [-]   - Select integration mode:
+%                                   - 'hifi': high-fidelity gravity
+%                                   - 'approx': approximated dynamics
+%                                   - 'averaged': averaged dynamics
+%                                   - 'full': n_body problem
+%                  .rel_rol [1,1] - Relative tolerance [-]
+%                  .abs_tol [1,1] - Absolute tolerane [-]
 %
 % OUTPUT:
 %
@@ -298,8 +315,11 @@ switch settings.mode
         % THIRD-BODY
         aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,init_cond.et,ref_sys.inertial,ref_sys.obs);
 
+        % SOLAR RADIATION PRESSURE
+        aSRP = @(t,r) pertSRP(t,r,Rp,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,init_cond.et);
+
         % PERTURBING ACCELERATION
-        aTOT = @(t,x) g(t,x(1:3)) + aTB(t,x(1:3));
+        aTOT = @(t,x) g(t,x(1:3)) + aTB(t,x(1:3)) + aSRP(t,x(1:3));
 
         % INITIAL CONDITION
         equi0 = car2equi(init_cond.x0,mu);
@@ -376,8 +396,11 @@ switch settings.mode
         % THIRD-BODY
         aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,init_cond.et,ref_sys.inertial,ref_sys.obs);
 
+        % SOLAR RADIATION PRESSURE
+        aSRP = @(t,r) pertSRP(t,r,Rp,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,init_cond.et);
+
         % PERTURBING ACCELERATION
-        aTOT = @(t,x) aZH(t,x(1:3)) + aTB(t,x(1:3));
+        aTOT = @(t,x) aZH(t,x(1:3)) + aTB(t,x(1:3)) + aSRP(t,x(1:3));
 
         % INITIAL CONDITION
         equi0 = car2equi(init_cond.x0,mu);
@@ -414,10 +437,16 @@ switch settings.mode
             muTB(i) = cspice_bodvrd(perturb.TB{i},'GM',1);
         end
 
+        % SOLAR RADIATION PRESSURE
+        aSRP = @(t,r) pertSRP_full(t,r,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,init_cond.et);
+
+        % PERTURBING ACCELERATION
+        aTOT = @(t,x) aSRP(t,x(1:3));
+
         % integrate using cartesian state
         fprintf('Propagating the orbit...\n');
         tic
-        [t,y] = ode113(@(t,x) full_rhs(t,x,mu,perturb.TB,muTB,ref_sys.inertial,ref_sys.obs,init_cond.et),init_cond.tSpan,init_cond.x0,options);
+        [t,y] = ode113(@(t,x) full_rhs(t,x,mu,perturb.TB,muTB,aTOT,ref_sys.inertial,ref_sys.obs,init_cond.et),init_cond.tSpan,init_cond.x0,options);
         toc
 end
 
@@ -471,7 +500,7 @@ end
 
 %------------------------------- FULL ------------------------------------%
 
-function [dxdt] = full_rhs(t,x,mu,NB,muNB,ref_sys,obs,et)
+function [dxdt] = full_rhs(t,x,mu,NB,muNB,acc_ijk,ref_sys,obs,et)
 
 % Initialize right-hand-side
 dxdt = zeros(6,1);
@@ -503,5 +532,7 @@ for i = 1:size(NB(:,1))
     % Sum up acceleration to right-hand-side
     dxdt(4:6) = dxdt(4:6) + acc_pos_i;
 end
+
+dxdt(4:6) = dxdt(4:6) + acc_ijk;
 
 end
