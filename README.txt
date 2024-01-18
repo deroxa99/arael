@@ -79,16 +79,9 @@
 %  - SOLAR RADIATION PRESSURE: not yet implemented
 %
 %----------------------------- AVERAGED ----------------------------------%
-%  - GRAVITY: implement an averaged zonal harmonic model that allows to cut
-%    out fast evolving dynamics, drastically reducing the integration time.
-%    Integration is carried out in Keplerian Elements and supported central
-%    bodies are:
-%     - 'EARTH': zonal harmonics up to J4;
+%  - GRAVITY: not yet implemented
 %
-%  - THIRD BODY: Perturbation due to third bodies are also averaged to cut
-%    out fast evolving dynamics. Up to now the only perturbing bodies that
-%    can be taken into account are:
-%     - 'MOON', 'SUN'
+%  - THIRD BODY: not yet implemented
 %
 %  - AIR DRAG: not yet implemented
 %
