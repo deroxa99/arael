@@ -105,7 +105,6 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %-------------------------------------------------------------------------%
 % THIS FUNCTION MAKE USE OF THE SPICE TOOLKIT DEVELOPED BY NASA, LEARN
 % MORE ABOUT SPICE AT: https://naif.jpl.nasa.gov/naif/toolkit.html
-% To work properly, locate the 'kernels' folder in the working folder.
 %-------------------------------------------------------------------------%
 % INPUT:
 % init_cond  [-] - Struc containintg:
