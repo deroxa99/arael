@@ -10,8 +10,8 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %-------------------------------------------------------------------------%
 % RELEASE NOTES: Arael is an orbit propagater that allows the user to     
 % choose between different propatgation methods, making use of various 
-% levels of approximation of the dynamics in order to allow for           
-% high-fidelity or high-performance simulations.                          
+% levels of approximation of the dynamics in order to allow for a trade off
+% between high-fidelity or high-performance simulations.                            
 %                                                                         
 % The selectable methods are:
 %  - 'hifi'
