@@ -1,0 +1,302 @@
+PDS_VERSION_ID               = PDS3                                           
+RECORD_TYPE                  = FIXED_LENGTH                                   
+RECORD_BYTES                 = 122                                            
+FILE_RECORDS                 = 3320                                           
+^SHADR_HEADER_TABLE          = ("GGM1025A.SHA",1)                             
+^SHADR_COEFFICIENTS_TABLE    = ("GGM1025A.SHA",3)                             
+INSTRUMENT_HOST_NAME         = "MARS GLOBAL SURVEYOR"                         
+TARGET_NAME                  = MARS                                           
+INSTRUMENT_NAME              = "RADIO SCIENCE SUBSYSTEM"                      
+DATA_SET_ID                  = "MGS-M-RSS-5-SDP-V1.0"                         
+OBSERVATION_TYPE             = "GRAVITY FIELD"                                
+ORIGINAL_PRODUCT_ID          = "MGM1025"                                      
+PRODUCT_ID                   = "GGM1025A.SHA"                                 
+PRODUCT_RELEASE_DATE         = 2002-01-01                                     
+DESCRIPTION                  = "                                              
+                                                                              
+ This file contains coefficients and related data for a spherical             
+ harmonic model of the Mars gravity field.  Input data are from               
+ radio tracking of the Mars Global Surveyor spacecraft; no Mariner 9          
+ or Viking data are included.                                                 
+                                                                              
+ The MGM1025 gravity model is an update to the GMM-2B gravity model.          
+ It was determined from 155 arcs of MGS tracking data in Hiatus, SPO,         
+ GCO and Mapping.  MGM1025 includes the same Mapping and GCO data             
+ as were in GMM2B; in addition, it includes data from the first half          
+ of 2001 (through July 21, 2001) when the MGS orbit orientation angle         
+ with respect to the line-of-sight (LOS) was optimum for gravity              
+ measurements.  It excludes data in the vicinity of solar conjunction         
+ from May 08 to July 30 in 2000.                                              
+                                                                              
+               Comparison of  GMM2B and MGM1025                               
+               --------------------------------                               
+                                  GMM2B      MGM1025                          
+                                --------    --------                          
+                                                                              
+           Model Size             80x80       80x80                           
+                                                                              
+           Coordinate System    IAU 1991    IAU 2000                          
+                                                                              
+           Observations                                                       
+           ------------                                                       
+            Hiatus                24,119      24,119                          
+            SPO-1                 31,001      31,014                          
+            SPO-2                157,972     136,667                          
+            GCO                   76,813      80,795                          
+            Mapping              665,210   1,352,661                          
+            TOTAL                955,155   1,625,276                          
+                                                                              
+           Number of Arcs                                                     
+           --------------                                                     
+            Hiatus                     2           2                          
+            SPO-1                      8           8                          
+            SPO-2                     16          14                          
+            GCO                        9           9                          
+            Mapping                   47         122                          
+                                                                              
+ MGM1025 has improved correlation with topogaphy compared with GMM-2B.        
+ The average correlation with MOLA derived topography (through degree         
+ 70) is 0.722 for GMM-2B and 0.756 for MGM1025.                               
+                                                                              
+ The new model has slightly greater power in the band from l=60 to 70.        
+ The average RMS of fit to the F2 (two-way) tracking data is 0.13 to          
+ 0.20 mm/s with this model, excluding arcs in the vicinity of solar           
+ conjunction.  The average RMS of fit for the one-way (F1) Doppler            
+ tracking with this model is  0.10 to 0.15 mm/s.  The one-way data            
+ contribute to solutions starting sporadically in February 2000 and           
+ more consistently in arcs starting in March of 2000.  They are used          
+ solely to fill in what would otherwise be gaps in the two-way tracking.      
+ Frequency biases are estimated for each pass of one-way data.                
+                                                                              
+ The coordinate system for the new model is IAU 2000 (Seidelman et al.,       
+ Cel. Mech. Dyn. Astron, 82, 83-110, 2002), defined by the Mars Cartography   
+ Working Group.  It includes updates to the orientation of the Mars           
+ Pole and rotation rate from a joint Pathfinder/Viking solution, and a        
+ re-determination of the location of the prime meridian (with respect to      
+ the crater Airy-0) from Mars Global Surveyor MOC and MOLA data.  Pole        
+ right ascension (alpha) and declination (delta), prime meridian (Wo),        
+ and rotation rate (Wodot) in IAU 2000 are:                                   
+                                                                              
+              alpha  = 317.68143 deg -0.1061 deg/century                      
+              delta  =  52.88650 deg -0.0609 deg/century                      
+              Wo     = 176.630 deg                                            
+              Wdot   = 350.89198266 deg/day                                   
+                                                                              
+ The analysis and results for MGM1025 were described by F.G. Lemoine,         
+ G.A. Neumann, D.S. Chinn, D.E. Smith, M.T. Zuber, D.D. Rowlands,             
+ D.P. Rubincam,  and D.E. Pavlis in 'Solution for Mars Geophysical            
+ Parameters from Mars Global Surveyor Tracking Data', American                
+ Geophysical Union Fall Meeting 2001 (EOS, Trans. AGU 82(47), Fall            
+ Meeting Supplement, Abstract P42A-0545, F721, 2001).  The GMM2B              
+ model was described by Lemoine et al., 'An Improved Solution of the          
+ Gravity Field of Mars (GMM-2B) from Mars Global Surveyor',                   
+ J. Geophys Res., 106(E10), 23359-23376, Oct 25, 2001.                        
+                                                                              
+ This product is a set of two ASCII tables: a header table and a              
+ coefficients table.  Definitions of the tables follow.                       
+                                                                              
+ This Mars gravity model was produced by F.G. Lemoine under the               
+ direction of D.E. Smith of the MGS Radio Science Team."                      
+                                                                              
+START_TIME                   = 1997-10-13T00:00:00                            
+STOP_TIME                    = 2001-07-21T23:59:39                            
+START_ORBIT_NUMBER           = 19                                             
+STOP_ORBIT_NUMBER            = 10596                                          
+PRODUCT_CREATION_TIME        = 2001-11-01T22:50:36                            
+PRODUCER_FULL_NAME           = "FRANK G. LEMOINE"                             
+PRODUCER_INSTITUTION_NAME    = "GODDARD SPACE FLIGHT CENTER"                  
+PRODUCT_VERSION_TYPE         = "FINAL"                                        
+PRODUCER_ID                  = "MGS RST"                                      
+SOFTWARE_NAME                = "SOLVE;9603.02"                                
+                                                                              
+OBJECT               = SHADR_HEADER_TABLE                                     
+ROWS                       = 1                                                
+COLUMNS                    = 8                                                
+ROW_BYTES                  = 137                                              
+ROW_SUFFIX_BYTES           = 107                                              
+INTERCHANGE_FORMAT         = ASCII                                            
+DESCRIPTION                = "The SHADR header includes descriptive           
+ information about the spherical harmonic coefficients which follow           
+ in SHADR_COEFFICIENTS_TABLE.  The header consists of a single record         
+ of eight (delimited) data columns requiring 137 bytes, a pad of 105          
+ unspecified ASCII characters, an ASCII carriage-return, and an ASCII         
+ line-feed."                                                                  
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "REFERENCE RADIUS"                         
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 1                                          
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "KILOMETER"                                
+    DESCRIPTION                  = "The assumed reference radius of           
+     the spherical planet."                                                   
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "CONSTANT"                                 
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 25                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "For a gravity field model the             
+     assumed gravitational constant GM in km cubed per seconds                
+     squared for the planet.  For a topography model, set to 1."              
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "UNCERTAINTY IN CONSTANT"                  
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 49                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "For a gravity field model the             
+     uncertainty in the gravitational constant GM in km cubed per             
+     seconds squared for the planet (or, set to 0 if not known).              
+     For a topography model, set to 0."                                       
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "DEGREE OF FIELD"                          
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 73                                         
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "Degree of the model field."               
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "ORDER OF FIELD"                           
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 79                                         
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "Order of the model field."                
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "NORMALIZATION STATE"                      
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 85                                         
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The normalization indicator.              
+     For gravity field:                                                       
+        0   coefficients are unnormalized                                     
+        1   coefficients are normalized                                       
+        2   other."                                                           
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "REFERENCE LONGITUDE"                      
+    POSITIVE_LONGITUDE_DIRECTION = "EAST"                                     
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 91                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "DEGREE"                                   
+    DESCRIPTION                  = "The reference longitude for the           
+     spherical harmonic expansion; normally 0."                               
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "REFERENCE LATITUDE"                       
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 115                                        
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "DEGREE"                                   
+    DESCRIPTION                  = "The reference latitude for the            
+     spherical harmonic expansion; normally 0."                               
+  END_OBJECT               = COLUMN                                           
+                                                                              
+END_OBJECT           = SHADR_HEADER_TABLE                                     
+                                                                              
+OBJECT               = SHADR_COEFFICIENTS_TABLE                               
+  ROWS                     = 3318                                             
+  COLUMNS                  = 6                                                
+  ROW_BYTES                = 107                                              
+  ROW_SUFFIX_BYTES         = 15                                               
+  INTERCHANGE_FORMAT       = ASCII                                            
+  DESCRIPTION              = "The SHADR coefficients table contains           
+   the coefficients for the spherical harmonic model. Each row in the         
+   table contains the degree index m, the order index n, the                  
+   coefficients Cmn and Smn, and the uncertainties in Cmn and Smn.            
+   The (delimited) data require 107 ASCII characters; these are               
+   followed by a pad of 13 unspecified ASCII characters, an ASCII             
+   carriage-return, and an ASCII line-feed."                                  
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "COEFFICIENT DEGREE"                       
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 1                                          
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The degree index m of the                 
+    C and S coefficients in this record."                                     
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "COEFFICIENT ORDER"                        
+    DATA_TYPE                    = ASCII_INTEGER                              
+    START_BYTE                   = 7                                          
+    BYTES                        = 5                                          
+    FORMAT                       = "I5"                                       
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The order index n of the C and S          
+     coefficients in this record."                                            
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "C"                                        
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 13                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The coefficient Cmn for this              
+     spherical harmonic model."                                               
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "S"                                        
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 37                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The coefficient Smn for this              
+     spherical harmonic model."                                               
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "C UNCERTAINTY"                            
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 61                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The uncertainty in the coefficient        
+     Cmn for this spherical harmonic model."                                  
+  END_OBJECT               = COLUMN                                           
+                                                                              
+  OBJECT                   = COLUMN                                           
+    NAME                         = "S UNCERTAINTY"                            
+    DATA_TYPE                    = ASCII_REAL                                 
+    START_BYTE                   = 85                                         
+    BYTES                        = 23                                         
+    FORMAT                       = "E23.16"                                   
+    UNIT                         = "N/A"                                      
+    DESCRIPTION                  = "The uncertainty in the coefficient        
+     Smn for this spherical harmonic model."                                  
+  END_OBJECT               = COLUMN                                           
+                                                                              
+END_OBJECT           = SHADR_COEFFICIENTS_TABLE                               
+                                                                              
+END                                                                           

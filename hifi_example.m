@@ -15,6 +15,8 @@ f = 0;
 kep0 = [a,e,i,OM,om,f];
 
 mu = 4.9028e+03; % Moon
+% mu = .3248585920790000e+06; % Venus
+% mu = 4.2828369773938997e+04; % Mars
 
 init_cond.x0 = kep2car(kep0,mu);
 
@@ -23,14 +25,14 @@ init_cond.et = 0;
 init_cond.tSpan = 0:60:24*3600;
 
 % gravity
-perturb.n = 5;
+perturb.n = 30;
 
 % third body
 %perturb.TB = {'EARTH'};
 perturb.TB = {};
 
 % ref sys
-ref_sys.inertial = 'MOON_ME_INERTIAL';
+ref_sys.inertial = 'J2000';
 %ref_sys.inertial = 'J2000';
 ref_sys.obs = 'MOON';
 
@@ -107,14 +109,9 @@ ylabel('\theta [°]')
 grid on
 
 %% comparison with gmat
-earth_J6 = 'arael\utils\gmat_debug\EARTH_debug.txt';
-earth_3B_J6 = 'arael\utils\gmat_debug\EARTH_debug_3B_J6.txt';
-earth_3B = 'arael\utils\gmat_debug\EARTH_debug_3B.txt';
-moon_J2 = 'arael\utils\gmat_debug\MOON_debug.txt';
-moon_3B = 'arael\utils\gmat_debug\MOON_debug_3B.txt';
-moon_3B_E = 'arael\utils\gmat_debug\MOON_debug_3B_E.txt';
+moon_30 = 'arael\utils\gmat_debug\MOON_debug_30.txt';
 
-data = readmatrix(moon_J2);
+data = readmatrix(moon_30);
 y_gmat = data(:,2:7);
 t_gmat = data(:,8);
 
@@ -129,12 +126,13 @@ end
 
 % 3D plot
 figure(3)
-plot3(y(:,1),y(:,2),y(:,3),'r')
+plot3(y(:,1),y(:,2),y(:,3),'r','DisplayName','arael')
 hold on
-plot3(y_gmat(:,1),y_gmat(:,2),y_gmat(:,3),'g')
+plot3(y_gmat(:,1),y_gmat(:,2),y_gmat(:,3),'g','DisplayName','GMAT')
 xlabel('x [km]')
 ylabel('y [km]')
 zlabel('z [km]')
+legend
 
 
 % plot keplerians

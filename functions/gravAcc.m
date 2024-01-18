@@ -56,6 +56,14 @@ switch obs
         % compute rotation matrix from MCI to Moon Principal Axes
         ROT = cspice_pxform(ref_sys, 'MOON_PA', t+et);
 
+    case 'MARS'
+        % compute rotation matrix from MCI to Moon Principal Axes
+        ROT = cspice_pxform(ref_sys, 'IAU_MARS', t+et);
+
+    case 'VENUS'
+        % compute rotation matrix from MCI to Moon Principal Axes
+        ROT = cspice_pxform(ref_sys, 'IAU_VENUS', t+et);
+
 end
 
 r_body = ROT*r_ijk;

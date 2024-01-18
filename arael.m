@@ -6,7 +6,7 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %-------------------------------------------------------------------------%
 % AUTHOR: Alessio Derobertis
 %-------------------------------------------------------------------------%
-% GITHUB: 
+% GITHUB: https://github.com/deroxa99/arael
 %-------------------------------------------------------------------------%
 % RELEASE NOTES: Arael is an orbit propagater that allows the user to     
 % choose between different propatgation methods, making use of various 
@@ -24,8 +24,17 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %    field in order to simulate the dynamics in the most advanced way 
 %    possible. The integration is carried out using Gauss Equinoctial 
 %    elements and the supported central bodies are:
-%    - 'EARTH': expansion up to order 360
-%    - 'MOON': expansion up to order 1200
+%    - 'EARTH': expansion up to order 360 (EGM96)
+%               - Source: https://cddis.nasa.gov/926/egm96/
+%    - 'MOON': expansion up to order 1200 (GRGM1200A)
+%               - Source: https://pgda.gsfc.nasa.gov/products/50
+%    - 'MARS': expansion up to order 80 (GGM1025A)
+%               - Source: https://pds-ppi.igpp.ucla.edu/search/view/
+%                         ?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/
+%                         RS_SHA/GGM1025A&o=1
+%    - 'VENUS': expansion up to order 180 (MGN180u)
+%               - Source: https://pds-geosciences.wustl.edu/mgn/
+%                         mgn-v-rss-5-gravity-l2-v1/mg_5201/gravity/
 %    To speed up the computation, pre-computed polynomials are available 
 %    for expansions of order n = [25,50,60,75,100,150,200,300].
 %
@@ -46,7 +55,9 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %    zonal harmonics effect for the
 %    following central bodies:
 %     - 'EARTH': zonal harmonics up to J6;
-%     - 'MOON': zonal harmonics up to J2;
+%     - 'MOON': zonal harmonics up to J4;
+%     - 'MARS': zonal harmonics up to J4;
+%     - 'VENUS': zonal harmonics up to J4;
 %
 %  - THIRD BODY: Perturbation due to third bodies can be implemented for
 %    the following bodies:
@@ -145,8 +156,9 @@ function [t,y] = arael(init_cond,ref_sys,perturb,settings)
 %-------------------------------------------------------------------------%
 % CHANGELOG: 2024/10/11 - Official relese for Matlab (Alessio Derobertis)
 %-------------------------------------------------------------------------%
-% TO DO: - check on gravity n
-%        - add 'average' and 'hifi' mode
+% TO DO: - debug MARS and VENUS using GMAT
+%        - check zonal coefficients for MOON,MARS,VENUS
+%        - add 'average'
 %        - add SRP and DRAG
 %-------------------------------------------------------------------------%
 
@@ -163,16 +175,16 @@ options = odeset('RelTol',settings.rel_tol,'AbsTol',settings.abs_tol);
 
 % reference system
 ref_sys_allowed = {'ECLIPJ2000';'J2000';'MOON_PA_INERTIAL';'MOON_ME_INERTIAL'};
-obs_allowed = {'SUN';'EARTH';'MOON'};
+obs_allowed = {'SUN';'EARTH';'MOON';'MARS';'VENUS'};
 
 % gravity
 n_hifi = [360;    % Earth
-    1200];        % Moon
+    1200;         % Moon
+    80;           % Mars
+    180];         % Venus      
 
 n_approx = [6;    % Earth
        2];        % Moon
-
-n_averaged = [4]; % Earth
 
 % third bodies
 tb_allowed = {'SUN';
@@ -223,7 +235,7 @@ switch settings.mode
 
     case 'hifi'
         % check for allowed observers
-        obs_allowed_approx = {'EARTH';'MOON'};
+        obs_allowed_approx = {'EARTH';'MOON';'MARS';'VENUS'};
 
         if ismember(ref_sys.obs,obs_allowed_approx) ~= 1
             fprintf('\n')
@@ -258,7 +270,26 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael/data/hifi/Moon/sha_grgm1200b_sigma.txt';
+                filename = 'arael/data/hifi/Moon/gggrx_1200a_sha.txt';
+
+            case 'MARS'
+                % check gravity degree
+                if perturb.n > n_hifi(3)
+                    fprintf('ERROR: invalid order of the gravitational field')
+                    return
+                end
+
+                filename = 'arael/data/hifi/Mars/GGM1025A.txt';
+
+            case 'VENUS'
+                % check gravity degree
+                if perturb.n > n_hifi(4)
+                    fprintf('ERROR: invalid order of the gravitational field')
+                    return
+                end
+
+                filename = 'arael/data/hifi/Venus/shgj180u.txt';
+
         end
 
         % compute expansion coefficients
@@ -282,8 +313,10 @@ switch settings.mode
         equi0 = car2equi(init_cond.x0,mu);
 
         % integrate using Equinoctial elements
+        fprintf('Propagating the orbit...\n');
+        tic
         [t,equi_s] = ode113(@(t,equi) hifi_rhs(t,equi,aTOT,mu),init_cond.tSpan,equi0,options);
-
+        toc
 
         % convert equinoctial elements into state
         y = zeros(length(t),6);
@@ -319,6 +352,23 @@ switch settings.mode
                 end
         end
 
+        % retrieve the zonal harmonics coeffieicnts
+        switch(obs)
+
+            case 'EARTH'
+                JN = [0.00108263,-2.5321530e-6,-1.6109877e-6,-2.3578565e-7,5.4316985e-7];
+
+            case 'MOON'
+                JN = [2.0323e-4,8.4759e-06,-9.5919e-06];
+
+            case 'MARS'
+                JN = [1.9555e-03,3.1450e-05,-1.5377e-05];
+
+            case 'VENUS'
+                JN = [4.4044e-06,-2.1082e-06,-2.1474e-06];
+
+        end
+
         % compute the gravitational constant and radius
         mu = cspice_bodvrd(ref_sys.obs,'GM',1);
         Rp = mean(cspice_bodvrd(ref_sys.obs,'RADII',3));
@@ -329,7 +379,7 @@ switch settings.mode
         end
 
         % GRAVITY
-        aZH = @(t,r) pertZH(t,r,ref_sys.inertial,ref_sys.obs,mu,Rp,perturb.n,init_cond.et);
+        aZH = @(t,r) pertZH(t,r,ref_sys.inertial,ref_sys.obs,mu,Rp,perturb.n,JN,init_cond.et);
 
         % THIRD-BODY
         aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,init_cond.et,ref_sys.inertial,ref_sys.obs);
@@ -341,8 +391,11 @@ switch settings.mode
         equi0 = car2equi(init_cond.x0,mu);
 
         % integrate using Equinoctial elements
+        fprintf('Propagating the orbit...\n');
+        tic
         [t,equi_s] = ode113(@(t,equi) approx_rhs(t,equi,aTOT,mu),init_cond.tSpan,equi0,options);
-        
+        toc
+
         % convert equinoctial elements into state
         y = zeros(length(t),6);
         for i = 1:length(t)
@@ -370,8 +423,10 @@ switch settings.mode
         end
 
         % integrate using cartesian state
+        fprintf('Propagating the orbit...\n');
+        tic
         [t,y] = ode113(@(t,x) full_rhs(t,x,mu,perturb.TB,muTB,ref_sys.inertial,ref_sys.obs,init_cond.et),init_cond.tSpan,init_cond.x0,options);
-
+        toc
 end
 
 end

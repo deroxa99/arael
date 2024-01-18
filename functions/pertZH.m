@@ -1,4 +1,4 @@
-function [aGF_iner] = pertZH(t,r_iner,ref_sys,obs,mu,R,n,et)
+function [aGF_iner] = pertZH(t,r_iner,ref_sys,obs,mu,R,n,JN,et)
 % ------------------------------------------------------------------------
 % DESCRIPTION:
 % AVG3B - Compute averaged perturbing acceleration due to third body 
@@ -25,7 +25,9 @@ function [aGF_iner] = pertZH(t,r_iner,ref_sys,obs,mu,R,n,et)
 %
 %  n       [1,1]  - Truncation order of the zonal harmonics
 %
-%  et      [1,1]  -  Initial time in seconds past J2000 
+%  JN      [n,1]  - Vector containing the first n zonal harmonics
+%
+%  et      [1,1]  - Initial time in seconds past J2000 
 %
 % OUTPUT ARGUMENTS:
 %  a3B        [3x1]:   Perturbing acceleration in body-centered interial 
@@ -34,24 +36,13 @@ function [aGF_iner] = pertZH(t,r_iner,ref_sys,obs,mu,R,n,et)
 % CONTRIBUTOS: 
 %  Alessio Derobertis
 % ------------------------------------------------------------------------
-% CHANGELOG: 
+% CHANGELOG:
 %  04/04/2022 - First draft - ALessio Derobertis
 %  11/04/2022 - Revision and bug fixing - Alessio Derobertis
 %  10/01/2024 - New version for first release (Alessio Derobertis)
 % ------------------------------------------------------------------------
 
 if n > 1
-
-    % retrieve the coeffieicnts
-    switch(obs)
-
-        case 'EARTH'
-            JN = [0.00108263,-2.5321530e-6,-1.6109877e-6,-2.3578565e-7,5.4316985e-7];
-
-        case 'MOON'
-            JN = [2.0330530e-4];
-
-    end
 
     % convert into body-fixed frame
     switch obs
@@ -62,6 +53,14 @@ if n > 1
         case 'MOON'
             % compute rotation matrix from MCI to Moon Principal Axes
             ROT = cspice_pxform(ref_sys, 'MOON_PA', t+et);
+
+        case 'MARS'
+            % compute rotation matrix from MCI to Moon Principal Axes
+            ROT = cspice_pxform(ref_sys, 'IAU_MARS', t+et);
+
+        case 'VENUS'
+            % compute rotation matrix from MCI to Moon Principal Axes
+            ROT = cspice_pxform(ref_sys, 'IAU_VENUS', t+et);
 
     end
 
