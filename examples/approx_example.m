@@ -40,6 +40,8 @@ settings.mode = 'approx';
 settings.rel_tol = 1e-09;
 settings.abs_tol = 1e-10;
 
+% satellite
+
 %% integrate
 [t,y] = arael(init_cond,ref_sys,perturb,settings);
 

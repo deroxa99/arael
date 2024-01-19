@@ -6,7 +6,7 @@ clc
 %% Data
 
 % initial condition
-a = 7000;
+a = 35786; % GEO
 e = 1e-15;
 i = 1e-15;
 OM = 0;
@@ -14,7 +14,8 @@ om = 0;
 f = 0;
 kep0 = [a,e,i,OM,om,f];
 
-mu = 4.9028e+03; % Moon
+mu = 3.9860e+05; % Earth
+% mu = 4.9028e+03; % Moon
 % mu = .3248585920790000e+06; % Venus
 % mu = 4.2828369773938997e+04; % Mars
 
@@ -22,27 +23,34 @@ init_cond.x0 = kep2car(kep0,mu);
 
 % time
 init_cond.et = 0;
-init_cond.tSpan = 0:60:24*3600;
+init_cond.tSpan = 0:60:10*24*3600;
 
 % gravity
-perturb.n = 30;
+perturb.n = 10;
 
 % third body
-%perturb.TB = {'EARTH'};
-perturb.TB = {};
+perturb.TB = {'MOON';'SUN'};
+
+% srp
+perturb.SRP = 'on';
+
+% spacecraft
+spacecraft.m = 800; % mass [km]
+spacecraft.A = 1; % area [m^2]
+spacecraft.cR = 1.8; % reflectivity coeff. [-]
 
 % ref sys
 ref_sys.inertial = 'J2000';
 %ref_sys.inertial = 'J2000';
-ref_sys.obs = 'MOON';
+ref_sys.obs = 'EARTH';
 
 % settings
 settings.mode = 'hifi';
-settings.rel_tol = 1e-09;
-settings.abs_tol = 1e-10;
+settings.rel_tol = 1e-12;
+settings.abs_tol = 1e-12;
 
 %% integrate
-[t,y] = arael(init_cond,ref_sys,perturb,settings);
+[t,y] = arael(init_cond,ref_sys,perturb,spacecraft,settings);
 
 %% post processing
 
@@ -56,14 +64,14 @@ end
 %%% plot
 
 % 3D plot
-figure(1)
+figure(2)
 plot3(y(:,1),y(:,2),y(:,3))
 xlabel('x [km]')
 ylabel('y [km]')
 zlabel('z [km]')
 
 
-figure(2)
+figure(3)
 sgtitle('Evolution of keplerian elements')
 subplot(2,3,1)
 hold on
@@ -110,8 +118,9 @@ grid on
 
 %% comparison with gmat
 moon_30 = 'arael\utils\gmat_debug\MOON_debug_30.txt';
+earth_srp = 'arael\utils\gmat_debug\EARTH_debug_SRP.txt';
 
-data = readmatrix(moon_30);
+data = readmatrix(earth_srp);
 y_gmat = data(:,2:7);
 t_gmat = data(:,8);
 

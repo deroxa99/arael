@@ -32,13 +32,19 @@ ref_sys.inertial = 'ECLIPJ2000';
 %ref_sys.inertial = 'J2000';
 ref_sys.obs = 'SUN';
 
+% srp
+perturb.SRP = 'on';
+
+% spacecraft
+spacecraft.m = 100; % [kg]
+
 % settings
 settings.mode = 'full';
 settings.rel_tol = 1e-09;
 settings.abs_tol = 1e-10;
 
 %% integrate
-[t,y] = arael(init_cond,ref_sys,perturb,settings);
+[t,y] = arael(spacecraft,ref_sys,perturb,settings,init_cond);
 
 %% post processing
 

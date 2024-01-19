@@ -1,13 +1,17 @@
-function [aSRP] = pertSRP(t,rSC,Rp,cR,A,m,ref_sys,obs,et)
+function [aSRP] = pertSRP(t,rSC,Rp,set,cR,A,m,ref_sys,obs,et)
 % ------------------------------------------------------------------------
 % DESCRIPTION:
-% AVG3B - Compute averaged perturbing acceleration due to solar radiation
-%         pressure
+% PERTSRP - Compute averaged perturbing acceleration due to solar radiation
+%           pressure, taking into account umbra and penumbra regions.
 % ------------------------------------------------------------------------
 % INPUT ARGUMENTS:
 %  t       [1,1]  -  Integration time [s]
 %
 %  rSC     [3,1]  -  Position of the S/C in inertial frame [km]
+%
+%  set     [-]    - Set as:
+%                   - 'on': SRP is included
+%                   - 'off': SRP is not included
 %
 %  Rp      [1,1]  -  Radius of the observer body [km]
 %
@@ -33,7 +37,7 @@ function [aSRP] = pertSRP(t,rSC,Rp,cR,A,m,ref_sys,obs,et)
 %  a3B        [3x1]:   Perturbing acceleration in body-centered interial 
 %                      frame [km/s]
 % ------------------------------------------------------------------------
-% CONTRIBUTOS: 
+% CONTRIBUTOS:
 %  Alessio Derobertis
 % ------------------------------------------------------------------------
 % REFERENCE: Fundamentals of Astrodynamics and Applications - David A.
@@ -43,44 +47,53 @@ function [aSRP] = pertSRP(t,rSC,Rp,cR,A,m,ref_sys,obs,et)
 %  18/01/2024 - First draft - ALessio Derobertis
 % ------------------------------------------------------------------------
 
-% constants
-AU = 149597870.7; % astronomic unit [km]
-p = 4.57e-06; % average solar radiation pressure @ 1AU [N/m^2]
+switch set
+    case 'on'
 
-% compute position of the sun
-rSun = cspice_spkpos('SUN',t+et,ref_sys,'NONE',obs);
-rSunNorm = norm(rSun);
-rNorm = norm(rSC);
-rRel = rSun - rSC;
-rRelNorm = norm(rRel);
+        % constants
+        AU = 149597870.7; % astronomic unit [km]
+        p = 4.57e-06; % average solar radiation pressure @ 1AU [N/m^2]
 
-% compute shadow function
-Rs = 695700; % [km]
-sa_umb = (Rs-Rp)/rSunNorm;
-sa_pen = (Rs+Rp)/rSunNorm;
-zeta = cspice_vsep(-rSun,rSC);
-sat_h = rNorm*cos(zeta);
-sat_v = rNorm*sin(zeta);
-x = Rp/sa_pen;
-pen_v = tan(asin(sa_pen))*(x + sat_h);
+        % compute position of the sun
+        rSun = cspice_spkpos('SUN',t+et,ref_sys,'NONE',obs);
+        rSunNorm = norm(rSun);
+        rNorm = norm(rSC);
+        rRel = rSun - rSC;
+        rRelNorm = norm(rRel);
 
-if sat_v <= pen_v
-    y = rP/sa_umb;
-    umb_v = tan(asin(sa_umb))*(y - sat_h);
+        % compute shadow function
+        Rs = 695700; % [km]
+        sa_umb = (Rs-Rp)/rSunNorm;
+        sa_pen = (Rs+Rp)/rSunNorm;
+        zeta = cspice_vsep(-rSun,rSC);
+        sat_h = rNorm*cos(zeta);
+        sat_v = rNorm*sin(zeta);
+        x = Rp/sa_pen;
+        pen_v = tan(asin(sa_pen))*(x + sat_h);
 
-    if sat_v <= umb_v
-        % umbra
+        if sat_v <= pen_v
+            y = Rp/sa_umb;
+            umb_v = tan(asin(sa_umb))*(y - sat_h);
+
+            if sat_v <= umb_v
+                % umbra
+                aSRP = [0;0;0];
+            else
+                % penumbra (linear shadowing)
+                f = (sat_v-umb_v)/(pen_v-umb_v);
+                aSRP = -f*(p*cR*A/m)*(rRel/rRelNorm)*(AU^2/rRelNorm^2);
+
+            end
+        else
+            % no shadow
+            aSRP = -(p*cR*A/m)*(rRel/rRelNorm)*(AU^2/rRelNorm^2);
+        end
+
+    case 'off'
+
+        % no srp
         aSRP = [0;0;0];
-    else
-        % penumbra (linear shadowing)
-        f = (sat_v-umb_v)/(pen_v-umb_v);
-        aSRP = -f*(p*cR*A/m)*(rRel/rRelNorm)*(AU^2/rRelNorm^2);
 
-    end
-else
-    % no shadow
-    aSRP = -(p*cR*A/m)*(rRel/rRelNorm)*(AU^2/rRelNorm^2);
 end
-
 
 end

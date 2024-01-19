@@ -143,9 +143,9 @@ function [t,y] = arael(varargin)
 %                               (default = 'off').
 %
 % spacecraft [-] - Struct containing: 
-%                  .m [1,1]  - Mass of the S/C [km] (default = 850 kg)
+%                  .m [1,1]  - Mass of the S/C [km] (default = 1 kg)
 %                  .A [1,1]  - Cross-section of the S/C [m^2] 
-%                              (default = 2 m^2)
+%                              (default = 1 m^2)
 %                  .cR [1,1] - Reflectivity coefficient of the S/C [-]
 %                              (default = 1.8)
 %  
@@ -169,6 +169,7 @@ function [t,y] = arael(varargin)
 %-------------------------------------------------------------------------%
 % TO DO: - debug MARS and VENUS using GMAT
 %        - check zonal coefficients for MOON,MARS,VENUS
+%        - debug SRP
 %        - add 'average'
 %        - add DRAG
 %-------------------------------------------------------------------------%
@@ -297,7 +298,7 @@ if isfield(ref_sys,'obs') ~= 1
 end
 
 if isfield(perturb,'n') ~= 1
-    perturb.n = 0;
+    perturb.n = 1;
     fprintf('WARNING: perturb.n is missing, set to default\n')
 end
 
@@ -312,12 +313,17 @@ if isfield(perturb,'SRP') ~= 1
 end
 
 if isfield(spacecraft,'m') ~= 1
-    spacecraft.m = 850;
+    spacecraft.m = 1;
     fprintf('WARNING: spacecraft.m is missing, set to default\n')
 end
 
 if isfield(spacecraft,'A') ~= 1
-    spacecraft.A = 2;
+    spacecraft.A = 1;
+    fprintf('WARNING: spacecraft.A is missing, set to default\n')
+end
+
+if isfield(spacecraft,'A') ~= 1
+    spacecraft.A = 1;
     fprintf('WARNING: spacecraft.A is missing, set to default\n')
 end
 
@@ -327,7 +333,8 @@ if isfield(spacecraft,'cR') ~= 1
 end
 
 if isfield(settings,'mode') ~= 1
-    fprintf('WARNING: settings.mode missing, set to default\n')  
+    fprintf('ERROR: propagation mode missing (settings.mode)\n')
+    return
 end
 
 if isfield(settings,'rel_tol') ~= 1
@@ -515,7 +522,7 @@ switch settings.mode
         end
 
         % retrieve the zonal harmonics coeffieicnts
-        switch(ref_sys.obs)
+        switch(obs)
 
             case 'EARTH'
                 JN = [0.00108263,-2.5321530e-6,-1.6109877e-6,-2.3578565e-7,5.4316985e-7];
@@ -683,6 +690,6 @@ for i = 1:size(NB(:,1))
     dxdt(4:6) = dxdt(4:6) + acc_pos_i;
 end
 
-dxdt(4:6) = dxdt(4:6) + acc_ijk(t,x);
+dxdt(4:6) = dxdt(4:6) + acc_ijk;
 
 end

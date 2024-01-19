@@ -1,8 +1,7 @@
 function [aGF_iner] = pertZH(t,r_iner,ref_sys,obs,mu,R,n,JN,et)
 % ------------------------------------------------------------------------
 % DESCRIPTION:
-% AVG3B - Compute averaged perturbing acceleration due to third body 
-% attraction
+% pertZH - Compute perturbing acceleration due to gravity zonal harmonics
 % ------------------------------------------------------------------------
 % INPUT ARGUMENTS:
 %  t       [1,1]  -  Integration time [s]

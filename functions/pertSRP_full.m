@@ -1,8 +1,8 @@
 function [aSRP] = pertSRP_full(t,rSC,set,cR,A,m,ref_sys,obs,et)
 % ------------------------------------------------------------------------
 % DESCRIPTION:
-% AVG3B - Compute averaged perturbing acceleration due to solar radiation
-%         pressure. Specialized for 'full' mode.
+% pertSRP_FULL - Compute perturbing acceleration due to solar radiation
+%                pressure. Specialized for 'full' mode.
 % ------------------------------------------------------------------------
 % INPUT ARGUMENTS:
 %  t       [1,1]  -  Integration time [s]
