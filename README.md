@@ -81,7 +81,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[Product Name Screen Shot][product-screenshot]
+![Product Name Screen Shot][product-screenshot]
 
 'ARAEL' is a MATLAB toolbox for planetary and interplanetary trajectories simulation.
 
@@ -122,13 +122,13 @@ The selectable methods are:
 
 ### **_HIFI_**
 - **Gravity**: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way    possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
-  - Earth: expansion up to order 360 (EGM96)
+  - Earth: expansion up to order 360 (EGM96);
     - Source: https://cddis.nasa.gov/926/egm96/
-  - Moon: expansion up to order 1200 (GRGM1200A)
+  - Moon: expansion up to order 1200 (GRGM1200A);
     - Source: https://pgda.gsfc.nasa.gov/products/50
-  - Mars: expansion up to order 80 (GGM1025A)
+  - Mars: expansion up to order 80 (GGM1025A);
     - Source: https://pds-ppi.igpp.ucla.edu/search/view/?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/RS_SHA/GGM1025A&o=1
-  - Venus: expansion up to order 180 (MGN180u)
+  - Venus: expansion up to order 180 (MGN180u).
     - Source: https://pds-geosciences.wustl.edu/mgn/mgn-v-rss-5-gravity-l2-v1/mg_5201/gravity/
 
 - **Third Body**: Perturbation due to third bodies can be implemented for the following bodies:
@@ -143,7 +143,7 @@ The selectable methods are:
  - Earth: zonal harmonics up to J6;
  - Moon: zonal harmonics up to J4;
  - Mars: zonal harmonics up to J4;
- - Venus: zonal harmonics up to J4;
+ - Venus: zonal harmonics up to J4.
  
 - **Third Body**: Perturbation due to third bodies can be implemented for the following bodies:
   - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
@@ -154,22 +154,22 @@ The selectable methods are:
 
 
 ### **_AVERAGED_**
-- **Gravity**: not yet implemented
+- **Gravity**: not yet implemented.
 
-- **Third Body**: not yet implemented
+- **Third Body**: not yet implemented.
 
-- **Air Drag**: not yet implemented
+- **Air Drag**: not yet implemented.
 
-- **Solar Radiation Pressure**: not yet implemented
+- **Solar Radiation Pressure**: not yet implemented.
 
 ### **_FULL_**
 - **Gravity**: implement an N-body problem where all the attractor are treated as point masses. The integration is carried out using the cartesian state. In this case perturb.n is not used. Allowed observer bodies are:
-  - Sun
+  - Sun.
 
 - **Third Body**: In this mode, the list of third bodies given in input is used to compute the N-body dynamics. Allowed bodies are:
   - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
 
-- **Air Drag**: not yet implemented
+- **Air Drag**: not yet implemented.
 
 - **Solar Radiation Pressure**: Perturbation due to solar radiation hitting the surface of the satellite. Shadow is not considered since the S/C is supposed to orbit the Sun.
 
@@ -181,7 +181,7 @@ In the following section an example for the _'approx'_ mode is shown.
 > [!WARNING]
 > Make sure to place the main script into the same wotking folder as the _'arael-main'_ folder and add to path.
 
-[Example screenshot][example-screenshot]
+![Example screenshot][example-screenshot]
 
 ```
 %%% ARAEL EXAMPLE
