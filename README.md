@@ -83,7 +83,7 @@
 
 ![Product Name Screen Shot][product-screenshot]
 
-'ARAEL' is a MATLAB toolbox for planetary and interplanetary trajectories simulation.
+**ARAEL** is a _MATLAB_ toolbox for planetary and interplanetary trajectories simulation.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,18 +109,18 @@ The selectable methods are:
 1. Download the main folder 'arael-main.zip' and extract it into your MATLAB working directory.
 2. Add the 'arael-main' folder and subfolder to the path.
 3. Into your script, call the function 'arael.m' (se the 'arael.m' description for detailed input).
+4. The simulation will start and the output will be saved in the Workspace (see the 'arael.m' description for detailed output).
   > [!IMPORTANT]
-  > The input is caps sensitive.
+  > The input is caps sensitive, the names of reference systems, observers and celestial bodies are always written in uppercase.
 
   > [!NOTE]
   > The input order is not fixed.
-4. The simulation will start and the output will be saved in the Workspace (see the 'arael.m' description for detailed output).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Modalities
 
-### **_HIFI_**
+### **_hifi_**
 - **Gravity**: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way    possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
   - Earth: expansion up to order 360 (EGM96);
     - Source: https://cddis.nasa.gov/926/egm96/
@@ -138,7 +138,7 @@ The selectable methods are:
 
 - **Solar Radiation Pressure**: Perturbation due to solar radiation hitting the surface of the satellite. Umbra and penumbra regions due to the shadow of the primary attractor are also taken into account.
 
-### **_APPROX_**
+### **_approx_**
 - GRAVITY: implement an approximated model for the gravity field, to speed up the simulation. The integration is carried out using Gauss Equinoctial elements and up to now it is possible to simulate only zonal harmonics effect for the following central bodies:
   - Earth: zonal harmonics up to J6;
   - Moon: zonal harmonics up to J4;
@@ -153,7 +153,7 @@ The selectable methods are:
 - **Solar Radiation Pressure**: Perturbation due to solar radiation hitting the surface of the satellite. Umbra and penumbra regions due to the shadow of the primary attractor are also taken into account.
 
 
-### **_AVERAGED_**
+### **_averaged_**
 - **Gravity**: not yet implemented.
 
 - **Third Body**: not yet implemented.
@@ -162,7 +162,7 @@ The selectable methods are:
 
 - **Solar Radiation Pressure**: not yet implemented.
 
-### **_FULL_**
+### **_full_**
 - **Gravity**: implement an N-body problem where all the attractor are treated as point masses. The integration is carried out using the cartesian state. In this case perturb.n is not used. Allowed observer bodies are:
   - Sun.
 
@@ -262,4 +262,4 @@ Project Link: [https://github.com/deroxa99/arael](https://github.com/deroxa99/ar
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/alessio-derobertis-4b4a831b7/
 [product-screenshot]: pictures/arael.png
-[example-screenshhot]: pictures/example.png
+[example-screenshot]: pictures/example.png
