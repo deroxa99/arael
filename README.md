@@ -122,14 +122,11 @@ The selectable methods are:
 
 ### **_hifi_**
 - **Gravity**: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way    possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
-  - Earth: expansion up to order 360 (EGM96);
-    - Source: https://cddis.nasa.gov/926/egm96/
-  - Moon: expansion up to order 1200 (GRGM1200A);
-    - Source: https://pgda.gsfc.nasa.gov/products/50
-  - Mars: expansion up to order 80 (GGM1025A);
-    - Source: https://pds-ppi.igpp.ucla.edu/search/view/?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/RS_SHA/GGM1025A&o=1
-  - Venus: expansion up to order 180 (MGN180u).
-    - Source: https://pds-geosciences.wustl.edu/mgn/mgn-v-rss-5-gravity-l2-v1/mg_5201/gravity/
+  - Earth: expansion up to order 360 ([EGM96](https://cddis.nasa.gov/926/egm96/));
+  - Moon: expansion up to order 1200 ([GRGM1200A](https://pgda.gsfc.nasa.gov/products/50));
+  - Mars: expansion up to order 80 ([GGM1025A](https://pds-ppi.igpp.ucla.edu/search/view/?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/RS_SHA/GGM1025A&o=1));
+  - Venus: expansion up to order 180 ([MGN180U](https://pds-geosciences.wustl.edu/mgn/mgn-v-rss-5-gravity-l2-v1/mg_5201/gravity/)).
+
 
 - **Third Body**: Perturbation due to third bodies can be implemented for the following bodies:
   - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
