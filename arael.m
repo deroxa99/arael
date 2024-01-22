@@ -176,10 +176,10 @@ function [t,y] = arael(varargin)
 %-------------------------------------------------------------------------%
 
 %%% add subfolders
-addpath(genpath("arael"))
+addpath(genpath("arael-main"))
 
 %%% load kernels
-cspice_furnsh('arael/utils/meta_arael.tm');
+cspice_furnsh('arael-main/utils/meta_arael.tm');
 
 %%% define input
 possible_in = {'init_cond';'ref_sys';'perturb';'spacecraft';'settings'};
