@@ -91,10 +91,10 @@
 
 Arael allows the user to choose between different propatgation methods, making use of various levels of approximation of the dynamics, trading off the accuracy of the solution with the time needed for the computation.                                                                      
 The selectable methods are:
-- _'hifi'_: high accuracy, low speed. Suitable for one-time high fidelity simulation.
-- '_approx'_: medium accuracy, high speed. Suitable for optimization routines which propagating orbit on a short time-span.
-- _'averaged'_: low accuracy, very high speed. Suitable for optimization routines which require propagating orbit on a long time-span.
-- _'full'_: hish accuracy when used for interplanetary legs, average speed. Best choice for interplanetary orbits.
+- _hifi_: high accuracy, low speed. Suitable for one-time high fidelity simulation.
+- _approx_: medium accuracy, high speed. Suitable for optimization routines which propagating orbit on a short time-span.
+- _averaged_: low accuracy, very high speed. Suitable for optimization routines which require propagating orbit on a long time-span.
+- _full_: high accuracy when used for interplanetary legs, average speed. Best choice for interplanetary orbits.
 
 ## Prerequisites
 
@@ -106,7 +106,7 @@ The selectable methods are:
 
 1. Download the main folder 'arael-main.zip' and extract it into your MATLAB working directory.
 2. Add the 'arael-main' folder and subfolder to the path.
-3. Into your script, call the function 'arael.m' (se the 'arael.m' description for detailed input).
+3. Into your script, call the function 'arael.m' (see the 'arael.m' description for detailed input).
 4. The simulation will start and the output will be saved in the Workspace (see the 'arael.m' description for detailed output).
   > [!IMPORTANT]
   > The input is caps sensitive, the names of reference systems, observers and celestial bodies are always written in uppercase.
@@ -134,7 +134,7 @@ The selectable methods are:
 - **Solar Radiation Pressure**: Perturbation due to solar radiation hitting the surface of the satellite. Umbra and penumbra regions due to the shadow of the primary attractor are also taken into account.
 
 ### **_approx_**
-- GRAVITY: implement an approximated model for the gravity field, to speed up the simulation. The integration is carried out using Gauss Equinoctial elements and up to now it is possible to simulate only zonal harmonics effect for the following central bodies:
+- **Gravity**: implement an approximated model for the gravity field, to speed up the simulation. The integration is carried out using Gauss Equinoctial elements and up to now it is possible to simulate only zonal harmonics effect for the following central bodies:
   - Earth: zonal harmonics up to J6;
   - Moon: zonal harmonics up to J4;
   - Mars: zonal harmonics up to J4;
