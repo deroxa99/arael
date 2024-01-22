@@ -21,8 +21,6 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -241,7 +239,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Alessio Derobertis - [linkedin-shield][linkedin-url] - alessioderobertis@outlook.com
+Alessio Derobertis - [linkedin][linkedin-url] - alessioderobertis@outlook.com
 
 Project Link: [https://github.com/deroxa99/arael](https://github.com/deroxa99/arael)
 
