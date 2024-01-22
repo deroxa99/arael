@@ -120,57 +120,58 @@ The selectable methods are:
 
 ## Modalities
 
-### _HIFI_
-- GRAVITY: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
-  - 'EARTH': expansion up to order 360 (EGM96)
+### **_HIFI_**
+- **Gravity**: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way    possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
+  - Earth: expansion up to order 360 (EGM96)
     - Source: https://cddis.nasa.gov/926/egm96/
-  - 'MOON': expansion up to order 1200 (GRGM1200A)
+  - Moon: expansion up to order 1200 (GRGM1200A)
     - Source: https://pgda.gsfc.nasa.gov/products/50
-  - 'MARS': expansion up to order 80 (GGM1025A)
+  - Mars: expansion up to order 80 (GGM1025A)
     - Source: https://pds-ppi.igpp.ucla.edu/search/view/?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/RS_SHA/GGM1025A&o=1
-  - 'VENUS': expansion up to order 180 (MGN180u)
+  - Venus: expansion up to order 180 (MGN180u)
     - Source: https://pds-geosciences.wustl.edu/mgn/mgn-v-rss-5-gravity-l2-v1/mg_5201/gravity/
 
-- THIRD BODY: Perturbation due to third bodies can be implemented for the following bodies:
-  - 'SUN', 'MERCURY', 'VENUS', 'EARTH', 'MOON', 'MARS BARYCENTER', 'JUPITER BARYCENTER', 'SATURN BARYCENTER', 'URANUS BARYCENTER', 'NEPTUNE BARYCENTER', 'PLUTO' BARYCENTER.
+- **Third Body**: Perturbation due to third bodies can be implemented for the following bodies:
+  - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
 
-- AIR DRAG: not yet implemented
+- **Air Drag**: not yet implemented
 
-- SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting the surface of the satellite. Umbra and penumbra regions due to the shadow of the primary attractor are also taken into account.
+- **Solar Radiation Pressure**: Perturbation due to solar radiation hitting the surface of the satellite. Umbra and penumbra regions due to the shadow of the primary attractor are also taken into account.
 
-### _APPROX_
+### **_APPROX_**
 - GRAVITY: implement an approximated model for the gravity field, to speed up the simulation. The integration is carried out using Gauss Equinoctial elements and up to now it is possible to simulate only zonal harmonics effect for the following central bodies:
  - 'EARTH': zonal harmonics up to J6;
  - 'MOON': zonal harmonics up to J4;
  - 'MARS': zonal harmonics up to J4;
  - 'VENUS': zonal harmonics up to J4;
  
-- THIRD BODY: Perturbation due to third bodies can be implemented for the following bodies:
-  - 'SUN','MERCURY','VENUS','EARTH','MOON','MARS BARYCENTER','JUPITER BARYCENTER','SATURN BARYCENTER', 'URANUS BARYCENTER','NEPTUNE BARYCENTER','PLUTO' BARYCENTER.
- 
-- AIR DRAG: not yet implemented
- 
-- SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting the surface of the satellite. Umbra and penumbra regions due to the shadow of the primary attractor are also taken into account.
+- **Third Body**: Perturbation due to third bodies can be implemented for the following bodies:
+  - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
 
-### _AVERAGED_
-- GRAVITY: not yet implemented
+- **Air Drag**: not yet implemented
 
-- THIRD BODY: not yet implemented
+- **Solar Radiation Pressure**: Perturbation due to solar radiation hitting the surface of the satellite. Umbra and penumbra regions due to the shadow of the primary attractor are also taken into account.
 
-- AIR DRAG: not yet implemented
 
-- SOLAR RADIATION PRESSURE: not yet implemented
+### **_AVERAGED_**
+- **Gravity**: not yet implemented
 
-### _FULL_
-- GRAVITY: implement an N-body problem where all the attractor are treated as point masses. The integration is carried out using the cartesian state. In this case perturb.n is not used. Allowed observer bodies are:
- - 'SUN'
+- **Third Body**: not yet implemented
 
-- THIRD BODY: In this mode, the list of third bodies given in input is used to compute the N-body dynamics. Allowed bodies are:
- - 'SUN','MERCURY','VENUS','EARTH','MOON','MARS BARYCENTER','JUPITER BARYCENTER','SATURN BARYCENTER', 'URANUS BARYCENTER','NEPTUNE BARYCENTER','PLUTO' BARYCENTER.
+- **Air Drag**: not yet implemented
 
-- AIR DRAG: not yet implemented
+- **Solar Radiation Pressure**: not yet implemented
 
-- SOLAR RADIATION PRESSURE: Perturbation due to solar radiation hitting the surface of the satellite. Shadow is not considered since the S/C is supposed to orbit the Sun.
+### **_FULL_**
+- **Gravity**: implement an N-body problem where all the attractor are treated as point masses. The integration is carried out using the cartesian state. In this case perturb.n is not used. Allowed observer bodies are:
+  - Sun
+
+- **Third Body**: In this mode, the list of third bodies given in input is used to compute the N-body dynamics. Allowed bodies are:
+  - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
+
+- **Air Drag**: not yet implemented
+
+- **Solar Radiation Pressure**: Perturbation due to solar radiation hitting the surface of the satellite. Shadow is not considered since the S/C is supposed to orbit the Sun.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -182,7 +183,7 @@ In the following section an example for the _'approx'_ mode is shown.
 
 [Example screenshot][example-screenshot]
 
-'''
+```
 %%% ARAEL EXAMPLE
 clearvars
 close all
@@ -226,7 +227,7 @@ spacecraft.cR = 1.8; % reflectivity coefficient [-]
 .
 .
 .
-'''
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
