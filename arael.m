@@ -183,7 +183,6 @@ cspice_furnsh('arael/utils/meta_arael.tm');
 
 %%% define input
 possible_in = {'init_cond';'ref_sys';'perturb';'spacecraft';'settings'};
-struct 
 
 for i = 1:nargin
     if strcmp(inputname(i),possible_in{1}) == 1
