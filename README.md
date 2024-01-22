@@ -40,7 +40,7 @@
     <a href="https://github.com/deroxa99/arael"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/deroxa99/arael/examples">View Demo</a>
+    <a href="https://github.com/deroxa99/arael/main/examples">View Demo</a>
     ·
     <a href="https://github.com/deroxa99/arael/issues">Report Bug</a>
     ·
@@ -100,11 +100,11 @@ The selectable methods are:
 
 ## Prerequisites
 
-- **Spice**: This function makes use of the Spice toolkit developed by NASA, install spice from the [NASA](: https://naif.jpl.nasa.gov/naif/toolkit.html) website.
+- **Spice**: This function makes use of the Spice toolkit developed by NASA, install spice from the [NASA](https://naif.jpl.nasa.gov/naif/toolkit.html) website.
 - **Toolboxes**: 
  - Symbolic Manipulation Toolbox
 
-## Installation
+## Usage
 
 1. Download the main folder 'arael-main.zip' and extract it into your MATLAB working directory.
 2. Add the 'arael-main' folder and subfolder to the path.
@@ -114,7 +114,7 @@ The selectable methods are:
 
   > [!NOTE]
   > The input order is not fixed.
-4. The simulation will start and the output will be saved in the Workspace (se the 'arael.m' description for detailed output).
+4. The simulation will start and the output will be saved in the Workspace (see the 'arael.m' description for detailed output).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,10 +140,10 @@ The selectable methods are:
 
 ### **_APPROX_**
 - GRAVITY: implement an approximated model for the gravity field, to speed up the simulation. The integration is carried out using Gauss Equinoctial elements and up to now it is possible to simulate only zonal harmonics effect for the following central bodies:
- - 'EARTH': zonal harmonics up to J6;
- - 'MOON': zonal harmonics up to J4;
- - 'MARS': zonal harmonics up to J4;
- - 'VENUS': zonal harmonics up to J4;
+ - Earth: zonal harmonics up to J6;
+ - Moon: zonal harmonics up to J4;
+ - Mars: zonal harmonics up to J4;
+ - Venus: zonal harmonics up to J4;
  
 - **Third Body**: Perturbation due to third bodies can be implemented for the following bodies:
   - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
