@@ -102,7 +102,7 @@ The selectable methods are:
 
 - **Spice**: This function makes use of the Spice toolkit developed by NASA, install spice from the [NASA](https://naif.jpl.nasa.gov/naif/toolkit.html) website.
 - **Toolboxes**: 
- - Symbolic Manipulation Toolbox
+  - Symbolic Manipulation Toolbox
 
 ## Usage
 
