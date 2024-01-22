@@ -81,7 +81,7 @@
 
 ![Product Name Screen Shot][product-screenshot]
 
-**ARAEL** is a _MATLAB_ toolbox for planetary and interplanetary trajectories simulation.
+**Arael** is a _MATLAB_ toolbox for planetary and interplanetary trajectories simulation.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -89,12 +89,12 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Arael is an orbit propagater that allows the user to choose between different propatgation methods, making use of various levels of approximation of the dynamics in order to allow for a trade off between high-fidelity or high-performance simulations.                                                                        
+Arael allows the user to choose between different propatgation methods, making use of various levels of approximation of the dynamics, trading off the accuracy of the solution with the time needed for the computation.                                                                      
 The selectable methods are:
-- 'hifi'
-- 'approx'
-- 'averaged'
-- 'full'
+- _'hifi'_: high accuracy, low speed. Suitable for one-time high fidelity simulation.
+- '_approx'_: medium accuracy, high speed. Suitable for optimization routines which propagating orbit on a short time-span.
+- _'averaged'_: low accuracy, very high speed. Suitable for optimization routines which require propagating orbit on a long time-span.
+- _'full'_: hish accuracy when used for interplanetary legs, average speed. Best choice for interplanetary orbits.
 
 ## Prerequisites
 
@@ -119,7 +119,7 @@ The selectable methods are:
 ## Modalities
 
 ### **_hifi_**
-- **Gravity**: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way    possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
+- **Gravity**: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
   - Earth: expansion up to order 360 ([EGM96](https://cddis.nasa.gov/926/egm96/));
   - Moon: expansion up to order 1200 ([GRGM1200A](https://pgda.gsfc.nasa.gov/products/50));
   - Mars: expansion up to order 80 ([GGM1025A](https://pds-ppi.igpp.ucla.edu/search/view/?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/RS_SHA/GGM1025A&o=1));
