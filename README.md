@@ -140,10 +140,10 @@ The selectable methods are:
 
 ### **_APPROX_**
 - GRAVITY: implement an approximated model for the gravity field, to speed up the simulation. The integration is carried out using Gauss Equinoctial elements and up to now it is possible to simulate only zonal harmonics effect for the following central bodies:
- - Earth: zonal harmonics up to J6;
- - Moon: zonal harmonics up to J4;
- - Mars: zonal harmonics up to J4;
- - Venus: zonal harmonics up to J4.
+  - Earth: zonal harmonics up to J6;
+  - Moon: zonal harmonics up to J4;
+  - Mars: zonal harmonics up to J4;
+  - Venus: zonal harmonics up to J4.
  
 - **Third Body**: Perturbation due to third bodies can be implemented for the following bodies:
   - Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto.
