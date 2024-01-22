@@ -104,7 +104,7 @@ The selectable methods are:
 - **Toolboxes**: 
   - Symbolic Manipulation Toolbox
 
-## Usage
+## Installation
 
 1. Download the main folder 'arael-main.zip' and extract it into your MATLAB working directory.
 2. Add the 'arael-main' folder and subfolder to the path.
