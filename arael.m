@@ -105,7 +105,9 @@ function [t,y] = arael(varargin)
 % THIS FUNCTION MAKE USE OF THE SPICE TOOLKIT DEVELOPED BY NASA, LEARN
 % MORE ABOUT SPICE AT: https://naif.jpl.nasa.gov/naif/toolkit.html
 %-------------------------------------------------------------------------%
-% INPUT (no need for ordered input):
+% NOTE: input is CAPS SENSITIVE, no need for ordered input
+%-------------------------------------------------------------------------%
+% INPUT: 
 % init_cond  [-] - Struc containintg:
 %                  .x0:     [6,1] - Initial state in inertial reference
 %                                   frame [km,km/s]
