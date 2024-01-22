@@ -40,7 +40,7 @@
     <a href="https://github.com/deroxa99/arael"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/deroxa99/arael">View Demo</a>
+    <a href="https://github.com/deroxa99/arael/examples">View Demo</a>
     ·
     <a href="https://github.com/deroxa99/arael/issues">Report Bug</a>
     ·
@@ -111,8 +111,9 @@ The selectable methods are:
 3. Into your script, call the function 'arael.m' (se the 'arael.m' description for detailed input).
   > [!IMPORTANT]
   > The input is caps sensitive.
+
   > [!NOTE]
-  > The input order is not 
+  > The input order is not fixed.
 4. The simulation will start and the output will be saved in the Workspace (se the 'arael.m' description for detailed output).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -121,17 +122,17 @@ The selectable methods are:
 
 ### _HIFI_
 - GRAVITY: implement a complete harmonic expansion for the gravity field in order to simulate the dynamics in the most advanced way possible. The integration is carried out using Gauss Equinoctial elements and the supported central bodies are:
- - 'EARTH': expansion up to order 360 (EGM96)
-  - Source: https://cddis.nasa.gov/926/egm96/
- - 'MOON': expansion up to order 1200 (GRGM1200A)
-  - Source: https://pgda.gsfc.nasa.gov/products/50
- - 'MARS': expansion up to order 80 (GGM1025A)
-  - Source: https://pds-ppi.igpp.ucla.edu/search/view/?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/RS_SHA/GGM1025A&o=1
- - 'VENUS': expansion up to order 180 (MGN180u)
-  - Source: https://pds-geosciences.wustl.edu/mgn/mgn-v-rss-5-gravity-l2-v1/mg_5201/gravity/
+  - 'EARTH': expansion up to order 360 (EGM96)
+    - Source: https://cddis.nasa.gov/926/egm96/
+  - 'MOON': expansion up to order 1200 (GRGM1200A)
+    - Source: https://pgda.gsfc.nasa.gov/products/50
+  - 'MARS': expansion up to order 80 (GGM1025A)
+    - Source: https://pds-ppi.igpp.ucla.edu/search/view/?f=yes&id=pds://PPI/MGS-M-RSS-5-SDP-V1.0/DATA/RS_SHA/GGM1025A&o=1
+  - 'VENUS': expansion up to order 180 (MGN180u)
+    - Source: https://pds-geosciences.wustl.edu/mgn/mgn-v-rss-5-gravity-l2-v1/mg_5201/gravity/
 
 - THIRD BODY: Perturbation due to third bodies can be implemented for the following bodies:
- - 'SUN','MERCURY','VENUS','EARTH','MOON','MARS BARYCENTER','JUPITER BARYCENTER','SATURN BARYCENTER', 'URANUS BARYCENTER','NEPTUNE BARYCENTER','PLUTO' BARYCENTER.
+  - 'SUN', 'MERCURY', 'VENUS', 'EARTH', 'MOON', 'MARS BARYCENTER', 'JUPITER BARYCENTER', 'SATURN BARYCENTER', 'URANUS BARYCENTER', 'NEPTUNE BARYCENTER', 'PLUTO' BARYCENTER.
 
 - AIR DRAG: not yet implemented
 
@@ -160,7 +161,7 @@ The selectable methods are:
 
 - SOLAR RADIATION PRESSURE: not yet implemented
 
-## _FULL_
+### _FULL_
 - GRAVITY: implement an N-body problem where all the attractor are treated as point masses. The integration is carried out using the cartesian state. In this case perturb.n is not used. Allowed observer bodies are:
  - 'SUN'
 
