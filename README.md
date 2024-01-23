@@ -24,11 +24,7 @@
 
 
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/deroxa99/arael">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+![Product Name Screen Shot][product-screenshot]
 
 <h3 align="center">ARAEL</h3>
 
@@ -78,8 +74,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-![Product Name Screen Shot][product-screenshot]
 
 **Arael** is a _MATLAB_ toolbox for planetary and interplanetary trajectories simulation.
 
@@ -256,5 +250,5 @@ Project Link: [https://github.com/deroxa99/arael](https://github.com/deroxa99/ar
 [license-url]: https://github.com/deroxa99/arael/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/alessio-derobertis-4b4a831b7/
-[product-screenshot]: pictures/arael.jpg
+[product-screenshot]: pictures/arael_logo.jpg
 [example-screenshot]: pictures/example.png
