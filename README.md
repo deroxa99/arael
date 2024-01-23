@@ -104,10 +104,10 @@ The selectable methods are:
 
 ## Installation
 
-1. Download the main folder 'arael-main.zip' and extract it into your MATLAB working directory.
-2. Add the 'arael-main' folder and subfolder to the path.
-3. Into your script, call the function 'arael.m' (see the 'arael.m' description for detailed input).
-4. The simulation will start and the output will be saved in the Workspace (see the 'arael.m' description for detailed output).
+1. Download the main folder `arael-main.zip` and extract it into your MATLAB working directory.
+2. Add the `arael-main` folder and subfolder to the path.
+3. Into your script, call the function `arael.m` (see the `arael.m` description for detailed input).
+4. The simulation will start and the output will be saved in the Workspace (see the `arael.m` description for detailed output).
   > [!IMPORTANT]
   > The input is caps sensitive, the names of reference systems, observers and celestial bodies are always written in uppercase.
 
@@ -174,7 +174,7 @@ The selectable methods are:
 In the following section an example for the _'approx'_ mode is shown.
 
 > [!WARNING]
-> Make sure to place the main script into the same wotking folder as the _'arael-main'_ folder and add to path.
+> Make sure to place the main script into the same wotking folder as the `arael-main` folder and add to path.
 
 ![Example screenshot][example-screenshot]
 
