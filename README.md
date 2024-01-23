@@ -250,5 +250,5 @@ Project Link: [https://github.com/deroxa99/arael](https://github.com/deroxa99/ar
 [license-url]: https://github.com/deroxa99/arael/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/alessio-derobertis-4b4a831b7/
-[product-screenshot]: pictures/arael_logo.jpg
+[product-screenshot]: pictures/arael_logo.png
 [example-screenshot]: pictures/example.png
