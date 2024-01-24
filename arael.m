@@ -163,9 +163,9 @@ function [t,y] = arael(varargin)
 %
 % OUTPUT:
 %
-% t         [N,1] - Time span of the solution [s]
-% y         [N,6] - Integrated state [km,km/s] 
-%
+% t          [N,1] - Time span of the solution [s]
+% y          [N,6] - Integrated state [km,km/s] 
+% 
 %-------------------------------------------------------------------------%
 % CHANGELOG: 2024/10/11 - Official relese for Matlab (Alessio Derobertis)
 %-------------------------------------------------------------------------%
