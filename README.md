@@ -58,16 +58,20 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li>
+      <a href="#modalities">Modalities</a></li>
+        <ul>
+        <li><a href="#hifi">hifi</a></li>
+        <li><a href="#averaged">averaged</a></li>
+        <li><a href="#approx">approx</a></li>
+        <li><a href="#full">full</a></li>
+      </ul>
+    </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
-
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -87,13 +91,13 @@ The selectable methods are:
 - _averaged_: low accuracy, very high speed. Suitable for optimization routines which require propagating orbit on a long time-span.
 - _full_: high accuracy when used for interplanetary legs, average speed. Best choice for interplanetary orbits.
 
-## Prerequisites
+### Prerequisites
 
 - **Spice**: This function makes use of the Spice toolkit developed by NASA, install spice from the [NASA](https://naif.jpl.nasa.gov/naif/toolkit.html) website.
 - **Toolboxes**: 
   - Symbolic Manipulation Toolbox
 
-## Installation
+### Installation
 
 1. Download the main folder `arael-main.zip` and extract it into your MATLAB working directory.
 2. Add the `arael-main` folder and subfolder to the path.
