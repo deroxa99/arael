@@ -34,7 +34,7 @@
     <a href="https://github.com/deroxa99/arael"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/deroxa99/arael/main/examples">View Demo</a>
+    <a href="https://github.com/deroxa99/arael/tree/main/examples">View Demo</a>
     ·
     <a href="https://github.com/deroxa99/arael/issues">Report Bug</a>
     ·
