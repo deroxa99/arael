@@ -59,7 +59,7 @@
       </ul>
     </li>
     <li>
-      <a href="#modalities">Modalities</a></li>
+      <a href="#modalities">Modalities</a>
         <ul>
         <li><a href="#hifi">hifi</a></li>
         <li><a href="#averaged">averaged</a></li>
