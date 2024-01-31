@@ -87,7 +87,7 @@
 Arael allows the user to choose between different propatgation methods, making use of various levels of approximation of the dynamics, trading off the accuracy of the solution with the time needed for the computation.                                                                      
 The selectable methods are:
 - _hifi_: high accuracy, low speed. Suitable for one-time high fidelity simulation.
-- _approx_: medium accuracy, high speed. Suitable for optimization routines which propagating orbit on a short time-span.
+- _approx_: medium accuracy, high speed. Suitable for optimization routines which require propagating orbit on a short time-span.
 - _averaged_: low accuracy, very high speed. Suitable for optimization routines which require propagating orbit on a long time-span.
 - _full_: high accuracy when used for interplanetary legs, average speed. Best choice for interplanetary orbits.
 
