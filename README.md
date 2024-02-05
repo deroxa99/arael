@@ -166,7 +166,8 @@ The selectable methods are:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-In the following section an example for the _'approx'_ mode is shown.
+Check the live script in the 'examples' folder for a detailed usage example.
+Here a brief example script is reported.
 
 > [!WARNING]
 > Make sure to place the main script into the same wotking folder as the `arael-main` folder and add to path.
