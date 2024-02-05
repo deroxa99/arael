@@ -338,7 +338,7 @@ end
 
 if isfield(settings,'abs_tol') ~= 1
     fprintf('WARNING: settings.abs_tol is missing, set to default\n')
-    settings.rel_abs = 1e-09
+    settings.abs_tol = 1e-09
 end
 
 %%% integrator options
