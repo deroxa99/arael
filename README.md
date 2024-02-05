@@ -34,7 +34,7 @@
     <a href="https://github.com/deroxa99/arael"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/deroxa99/arael/main/examples">View Demo</a>
+    <a href="https://github.com/deroxa99/arael/tree/main/examples">View Demo</a>
     ·
     <a href="https://github.com/deroxa99/arael/issues">Report Bug</a>
     ·
@@ -50,27 +50,28 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
-      <ul>
+        <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li>
+      <a href="#modalities">Modalities</a>
+        <ul>
+        <li><a href="#hifi">hifi</a></li>
+        <li><a href="#averaged">averaged</a></li>
+        <li><a href="#approx">approx</a></li>
+        <li><a href="#full">full</a></li>
+      </ul>
+    </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
-
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -86,24 +87,24 @@
 Arael allows the user to choose between different propatgation methods, making use of various levels of approximation of the dynamics, trading off the accuracy of the solution with the time needed for the computation.                                                                      
 The selectable methods are:
 - _hifi_: high accuracy, low speed. Suitable for one-time high fidelity simulation.
-- _approx_: medium accuracy, high speed. Suitable for optimization routines which propagating orbit on a short time-span.
+- _approx_: medium accuracy, high speed. Suitable for optimization routines which require propagating orbit on a short time-span.
 - _averaged_: low accuracy, very high speed. Suitable for optimization routines which require propagating orbit on a long time-span.
 - _full_: high accuracy when used for interplanetary legs, average speed. Best choice for interplanetary orbits.
 
-## Prerequisites
+### Prerequisites
 
 - **Spice**: This function makes use of the Spice toolkit developed by NASA, install spice from the [NASA](https://naif.jpl.nasa.gov/naif/toolkit.html) website.
 - **Toolboxes**: 
   - Symbolic Manipulation Toolbox
 
-## Installation
+### Installation
 
 1. Download the main folder `arael-main.zip` and extract it into your MATLAB working directory.
 2. Add the `arael-main` folder and subfolder to the path.
 3. Into your script, call the function `arael` (type `help arael` in the command window for detailed input).
 4. The simulation will start and the output will be saved in the Workspace (type `help arael` in the command window for detailed output).
   > [!IMPORTANT]
-  > The input is caps sensitive, the names of reference systems, observers and celestial bodies are always written in uppercase.
+  > The input is caps sensitive. The names of reference systems, observers and celestial bodies are always written in uppercase.
 
   > [!NOTE]
   > The input order is not fixed.
