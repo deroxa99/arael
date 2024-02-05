@@ -6,13 +6,13 @@ clc
 %% Data
 
 % initial condition
-a = 4.214988153818061;
-e = 0.000002586353876;
-i = 0.000022934070698;
-OM = 0.000022941161937;
-om = 0.000550639719503;
-f = 0.000414587334010;
-kep0 = [a,e,i,OM,om,f]*1e04;
+a = 6.530695782249757e03;
+e = 0.000000992697621e03;
+i = 0.001696443403423e03;
+OM = 0.001692585769242e03;
+om = 0.002943702164456e03;
+f = 0.003961178194158e03;
+kep0 = [a,e,i,OM,om,f];
 
 %mu = 4.9028e+03; % Moon
 mu = 3.9860e+05; % Earth
@@ -20,15 +20,15 @@ mu = 3.9860e+05; % Earth
 init_cond.x0 = kep2car(kep0,mu);
 
 % time
-init_cond.utc0 ='2024-02-05 05:17:42.819936 UTC';
-init_cond.tSpan = 0:60:10*24*3600;
+init_cond.utc0 ='2023-03-11 00:05:00.201984 UTC';
+init_cond.tSpan = 0:-60:-10*24*3600;
 
 % gravity
-perturb.n = 10;
+perturb.n = 30;
 
 % third body
 %perturb.TB = {'EARTH'};
-perturb.TB = {'SUN','MOON'};
+perturb.TB = {};
 
 % ref sys
 ref_sys.inertial = 'J2000';
@@ -116,9 +116,9 @@ earth_3B = 'arael-main\utils\gmat_debug\EARTH_debug_3B.txt';
 moon_J2 = 'arael-main\utils\gmat_debug\MOON_debug.txt';
 moon_3B = 'arael-main\utils\gmat_debug\MOON_debug_3B.txt';
 moon_3B_E = 'arael-main\utils\gmat_debug\MOON_debug_3B_E.txt';
-earth_sgp4 = 'arael-main\utils\gmat_debug\EARTH_debug_sgp4.txt';
+earth_J4 = 'arael-main\utils\gmat_debug\EARTH_debug_J4.txt';
 
-data = readmatrix(earth_sgp4);
+data = readmatrix(earth_J4);
 y_gmat = data(:,2:7);
 t_gmat = data(:,8);
 
@@ -135,7 +135,7 @@ end
 figure(3)
 plot3(y(:,1),y(:,2),y(:,3),'r')
 hold on
-plot3(y_gmat(:,1),y_gmat(:,2),y_gmat(:,3),'b')
+plot3(y_gmat(:,1),y_gmat(:,2),y_gmat(:,3),'g')
 xlabel('x [km]')
 ylabel('y [km]')
 zlabel('z [km]')
@@ -146,42 +146,42 @@ figure(4)
 sgtitle('Evolution of keplerian elements')
 subplot(2,3,1)
 hold on
-plot(t, kep(:,1),'r',t_gmat,kep_gmat(:,1),'b')
+plot(t, kep(:,1),'r',t_gmat,kep_gmat(:,1),'g')
 title('Semi-major axis')
 xlabel('t [Orbits]')
 ylabel('a [km]')
 grid on
 subplot(2,3,2)
 hold on
-plot(t, kep(:,2),'r',t_gmat,kep_gmat(:,2),'b')
+plot(t, kep(:,2),'r',t_gmat,kep_gmat(:,2),'g')
 title('Eccectricity')
 xlabel('t [Orbits]')
 ylabel('e []')
 grid on
 subplot(2,3,3)
 hold on
-plot(t, kep(:,3),'r',t_gmat,kep_gmat(:,3),'b')
+plot(t, kep(:,3),'r',t_gmat,kep_gmat(:,3),'g')
 title('Inclination')
 xlabel('t [Orbits]')
 ylabel('i [°]')
 grid on
 subplot(2,3,4)
 hold on
-plot(t, kep(:,4),'r',t_gmat,kep_gmat(:,4),'b')
+plot(t, kep(:,4),'r',t_gmat,kep_gmat(:,4),'g')
 title('Right Ascension of the ascending node')
 xlabel('t [Orbits]')
 ylabel('\Omega [°]')
 grid on
 subplot(2,3,5)
 hold on
-plot(t, kep(:,5),'r',t_gmat,kep_gmat(:,5),'b')
+plot(t, kep(:,5),'r',t_gmat,kep_gmat(:,5),'g')
 title('Argument of Pericenter')
 xlabel('t [Orbits]')
 ylabel('\omega [°]')
 grid on
 subplot(2,3,6)
 hold on
-plot(t, wrapTo360(kep(:,6)),'r',t_gmat,kep_gmat(:,6),'b')
+plot(t, wrapTo360(kep(:,6)),'r',t_gmat,kep_gmat(:,6),'g')
 title('True Anomaly')
 xlabel('t [Orbits]')
 ylabel('\theta [°]')
@@ -195,7 +195,7 @@ opsmode    = 'a';  % afspc approach ('air force space command')
 whichconst =  72;  % WGS72 constants (radius, gravitational parameter)
 et0 = cspice_str2et(init_cond.utc0);
 
-% load the tle (breeze 26373)
+% load the tle (b)
 tle_1 = '1 26373U 00029B   24036.22063449 -.00000084  00000-0  00000-0 0  9990';
 tle_2 = '2 26373  13.1105  12.8500 0258164 316.2858 239.8887  1.00328814 86779';
 

@@ -111,7 +111,8 @@ function [t,y] = arael(varargin)
 % init_cond  [-] - Struc containintg:
 %                  .x0:     [6,1] - Initial state in inertial reference
 %                                   frame [km,km/s]
-%                  .et:     [1,1] - Initial time in seconds past J2000
+%                  .utc0:   [-]   - Initial time UTC, formatted as:
+%                                   'yyyy-mm-dd hh:mm:ss.sss UTC'
 %                  .tSpan:  [N,1] - Integration time-span [s]
 %  
 % ref_sys    [-] - Struct containing:
@@ -233,13 +234,11 @@ end
 t = 0;
 y = 0;
 
-%%% integrator options
-options = odeset('RelTol',settings.rel_tol,'AbsTol',settings.abs_tol);
-
 %%% Allowed settings
 
 % reference system
-ref_sys_allowed = {'ECLIPJ2000';'J2000';'MOON_PA_INERTIAL';'MOON_ME_INERTIAL'};
+ref_sys_allowed = {'ECLIPJ2000';'J2000';'MOON_PA_INERTIAL';'MOON_ME_INERTIAL';
+    };
 obs_allowed = {'SUN';'EARTH';'MOON';'MARS';'VENUS'};
 
 % gravity
@@ -277,8 +276,8 @@ if isfield(init_cond,'x0') ~= 1
     return
 end
 
-if isfield(init_cond,'et') ~= 1
-    fprintf('ERROR: initial ephemeris time is missing (init_cond.et)\n')
+if isfield(init_cond,'utc0') ~= 1
+    fprintf('ERROR: initial time is missing (init_cond.utc0)\n')
     return
 end
 
@@ -298,47 +297,55 @@ if isfield(ref_sys,'obs') ~= 1
 end
 
 if isfield(perturb,'n') ~= 1
-    perturb.n = 0;
     fprintf('WARNING: perturb.n is missing, set to default\n')
+    perturb.n = 0
 end
 
 if isfield(perturb,'TB') ~= 1
-    perturb.TB = {};
     fprintf('WARNING: perturb.TB is missing, set to default\n')
+    perturb.TB = {}
 end
 
 if isfield(perturb,'SRP') ~= 1
-    perturb.SRP = 'off';
     fprintf('WARNING: perturb.SRP is missing, set to default\n')
+    perturb.SRP = 'off'
 end
 
 if isfield(spacecraft,'m') ~= 1
-    spacecraft.m = 850;
     fprintf('WARNING: spacecraft.m is missing, set to default\n')
+    spacecraft.m = 850
 end
 
 if isfield(spacecraft,'A') ~= 1
-    spacecraft.A = 2;
     fprintf('WARNING: spacecraft.A is missing, set to default\n')
+    spacecraft.A = 2
 end
 
 if isfield(spacecraft,'cR') ~= 1
-    spacecraft.cR = 1.8;
     fprintf('WARNING: spacecraft.cR is missing, set to default\n')
+    spacecraft.cR = 1.8
 end
 
 if isfield(settings,'mode') ~= 1
     fprintf('WARNING: settings.mode missing, set to default\n')  
+    settings.mode = 'hifi'
 end
 
 if isfield(settings,'rel_tol') ~= 1
     fprintf('WARNING: settings.rel_tol is missing, set to default\n')
+    settings.rel_tol = 1e-09
 end
 
 if isfield(settings,'abs_tol') ~= 1
     fprintf('WARNING: settings.abs_tol is missing, set to default\n')
+    settings.rel_abs = 1e-09
 end
 
+%%% integrator options
+options = odeset('RelTol',settings.rel_tol,'AbsTol',settings.abs_tol);
+
+%%% initial time in et
+et = cspice_str2et(init_cond.utc0);
 
 % ref. system
 if ismember(ref_sys.obs,obs_allowed) ~= 1
@@ -405,7 +412,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael/data/hifi/Earth/EGM96.txt';
+                filename = 'arael-main/data/hifi/Earth/EGM96.txt';
 
             case 'MOON'
                 % check gravity degree
@@ -414,7 +421,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael/data/hifi/Moon/gggrx_1200a_sha.txt';
+                filename = 'arael-main/data/hifi/Moon/gggrx_1200a_sha.txt';
 
             case 'MARS'
                 % check gravity degree
@@ -423,7 +430,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael/data/hifi/Mars/GGM1025A.txt';
+                filename = 'arael-main/data/hifi/Mars/GGM1025A.txt';
 
             case 'VENUS'
                 % check gravity degree
@@ -432,7 +439,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael/data/hifi/Venus/shgj180u.txt';
+                filename = 'arael-main/data/hifi/Venus/shgj180u.txt';
 
         end
 
@@ -445,13 +452,13 @@ switch settings.mode
         Pnm_norm = expansionFunc(perturb.n);
       
         % GRAVITY
-        g = @(t,r) gravAcc(t,r,mu,Rp,Pnm_norm,Cnm_mod,Snm_mod,perturb.n,ref_sys.inertial,ref_sys.obs,init_cond.et);
+        g = @(t,r) gravAcc(t,r,mu,Rp,Pnm_norm,Cnm_mod,Snm_mod,perturb.n,ref_sys.inertial,ref_sys.obs,et);
 
         % THIRD-BODY
-        aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,init_cond.et,ref_sys.inertial,ref_sys.obs);
+        aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,et,ref_sys.inertial,ref_sys.obs);
 
         % SOLAR RADIATION PRESSURE
-        aSRP = @(t,r) pertSRP(t,r,Rp,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,init_cond.et);
+        aSRP = @(t,r) pertSRP(t,r,Rp,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,et);
 
         % PERTURBING ACCELERATION
         aTOT = @(t,x) g(t,x(1:3)) + aTB(t,x(1:3)) + aSRP(t,x(1:3));
@@ -542,13 +549,13 @@ switch settings.mode
         end
 
         % GRAVITY
-        aZH = @(t,r) pertZH(t,r,ref_sys.inertial,ref_sys.obs,mu,Rp,perturb.n,JN,init_cond.et);
+        aZH = @(t,r) pertZH(t,r,ref_sys.inertial,ref_sys.obs,mu,Rp,perturb.n,JN,et);
 
         % THIRD-BODY
-        aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,init_cond.et,ref_sys.inertial,ref_sys.obs);
+        aTB = @(t,r) pertTB(t,r,perturb.TB,muTB,et,ref_sys.inertial,ref_sys.obs);
 
         % SOLAR RADIATION PRESSURE
-        aSRP = @(t,r) pertSRP(t,r,Rp,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,init_cond.et);
+        aSRP = @(t,r) pertSRP(t,r,Rp,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,et);
 
         % PERTURBING ACCELERATION
         aTOT = @(t,x) aZH(t,x(1:3)) + aTB(t,x(1:3)) + aSRP(t,x(1:3));
@@ -589,7 +596,7 @@ switch settings.mode
         end
 
         % SOLAR RADIATION PRESSURE
-        aSRP = @(t,r) pertSRP_full(t,r,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,init_cond.et);
+        aSRP = @(t,r) pertSRP_full(t,r,perturb.SRP,spacecraft.cR,spacecraft.A,spacecraft.m,ref_sys.inertial,ref_sys.obs,et);
 
         % PERTURBING ACCELERATION
         aTOT = @(t,x) aSRP(t,x(1:3));
@@ -597,7 +604,7 @@ switch settings.mode
         % integrate using cartesian state
         fprintf('Propagating the orbit...\n');
         tic
-        [t,y] = ode113(@(t,x) full_rhs(t,x,mu,perturb.TB,muTB,aTOT,ref_sys.inertial,ref_sys.obs,init_cond.et),init_cond.tSpan,init_cond.x0,options);
+        [t,y] = ode113(@(t,x) full_rhs(t,x,mu,perturb.TB,muTB,aTOT,ref_sys.inertial,ref_sys.obs,et),init_cond.tSpan,init_cond.x0,options);
         toc
 end
 
@@ -619,7 +626,7 @@ r_vers = r_ijk/norm(r_ijk);
 rv_cross = cross(r_ijk, v_ijk);
 n_vers = rv_cross/norm(rv_cross);
 t_vers = cross(n_vers, r_vers);
-IJK_2_RTN = [r_vers, t_vers, n_vers];
+IJK_2_RTN = [r_vers, t_vers, n_vers]';
 acc_rtn = IJK_2_RTN * acc_ijk(t,x);
 
 % Compute derivative in equinoctial elements
@@ -641,7 +648,7 @@ r_vers = r_ijk/norm(r_ijk);
 rv_cross = cross(r_ijk, v_ijk);
 n_vers = rv_cross/norm(rv_cross);
 t_vers = cross(n_vers, r_vers);
-IJK_2_RTN = [r_vers, t_vers, n_vers];
+IJK_2_RTN = [r_vers, t_vers, n_vers]';
 acc_rtn = IJK_2_RTN * acc_ijk(t,x);
 
 % compute variation of equinoctial elements

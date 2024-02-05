@@ -4,18 +4,18 @@ Description:
    Meta-kernel for ARAEL - Accurate tRAjectory Evaluation tooL
 
 \begindata
-    KERNELS_TO_LOAD = ( 'arael/utils/kernels/naif0012.tls',
-                        'arael/utils/kernels/moon_de440_220930.tf',
-                        'arael/utils/kernels/gm_de431.tpc',
-                        'arael/utils/kernels/pck00011.tpc',
-                        'arael/utils/kernels/de440s.bsp',
-                        'arael/utils/kernels/moon_pa_de440_200625.bpc',
-                        'arael/utils/kernels/moon_pa_inertial_dyn.txt',
-                        'arael/utils/kernels/moon_me_inertial_dyn.txt',
-                        'arael/utils/kernels/earth_070425_370426_predict.bpc',
-                        'arael/utils/kernels/earth_720101_070426.bpc',
-                        'arael/utils/kernels/earth_fixed.tf'
-                        'arael/utils/kernels/mars_iau2000_v1.tpc')
+    KERNELS_TO_LOAD = ( 'arael-main/utils/kernels/naif0012.tls',
+                        'arael-main/utils/kernels/moon_de440_220930.tf',
+                        'arael-main/utils/kernels/gm_de431.tpc',
+                        'arael-main/utils/kernels/pck00011.tpc',
+                        'arael-main/utils/kernels/de440s.bsp',
+                        'arael-main/utils/kernels/moon_pa_de440_200625.bpc',
+                        'arael-main/utils/kernels/moon_pa_inertial_dyn.txt',
+                        'arael-main/utils/kernels/moon_me_inertial_dyn.txt',
+                        'arael-main/utils/kernels/earth_070425_370426_predict.bpc',
+                        'arael-main/utils/kernels/earth_720101_070426.bpc',
+                        'arael-main/utils/kernels/earth_fixed.tf'
+                        'arael-main/utils/kernels/mars_iau2000_v1.tpc')
 
 \begintext
 
