@@ -99,8 +99,8 @@ The selectable methods are:
 
 ### Installation
 
-1. Download the main folder `arael-main.zip` and extract it into your MATLAB working directory.
-2. Add the `arael-main` folder and subfolder to the path.
+1. Clone the `arael` repository into your local machine.
+2. Add the `arael` folder and subfolder to the path.
 3. Into your script, call the function `arael` (type `help arael` in the command window for detailed input).
 4. The simulation will start and the output will be saved in the Workspace (type `help arael` in the command window for detailed output).
   > [!IMPORTANT]
