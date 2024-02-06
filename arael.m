@@ -177,10 +177,10 @@ function [t,y] = arael(varargin)
 %-------------------------------------------------------------------------%
 
 %%% add subfolders
-addpath(genpath("arael-main"))
+addpath(genpath("arael"))
 
 %%% load kernels
-cspice_furnsh('arael-main/utils/meta_arael.tm');
+cspice_furnsh('arael/utils/meta_arael.tm');
 
 %%% define input
 possible_in = {'init_cond';'ref_sys';'perturb';'spacecraft';'settings'};
@@ -412,7 +412,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael-main/data/hifi/Earth/EGM96.txt';
+                filename = 'arael/data/hifi/Earth/EGM96.txt';
 
             case 'MOON'
                 % check gravity degree
@@ -421,7 +421,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael-main/data/hifi/Moon/gggrx_1200a_sha.txt';
+                filename = 'arael/data/hifi/Moon/gggrx_1200a_sha.txt';
 
             case 'MARS'
                 % check gravity degree
@@ -430,7 +430,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael-main/data/hifi/Mars/GGM1025A.txt';
+                filename = 'arael/data/hifi/Mars/GGM1025A.txt';
 
             case 'VENUS'
                 % check gravity degree
@@ -439,7 +439,7 @@ switch settings.mode
                     return
                 end
 
-                filename = 'arael-main/data/hifi/Venus/shgj180u.txt';
+                filename = 'arael/data/hifi/Venus/shgj180u.txt';
 
         end
 
