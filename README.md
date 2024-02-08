@@ -100,9 +100,10 @@ The selectable methods are:
 ### Installation
 
 1. Clone the `arael` repository into your local machine.
-2. Add the `arael` folder and subfolder to the path.
-3. Into your script, call the function `arael` (type `help arael` in the command window for detailed input).
-4. The simulation will start and the output will be saved in the Workspace (type `help arael` in the command window for detailed output).
+2. Set the MATLAB working directory to the one containing the `arael` folder.
+3. Select the `arael` folder and use the command `Add to Path/Selected Folder(s) and Subfolder(s)`.
+7. Into your script, call the function `arael` (type `help arael` in the command window for detailed input).
+8. The simulation will start and the output will be saved in the Workspace (type `help arael` in the command window for detailed output).
   > [!IMPORTANT]
   > The input is caps sensitive. The names of reference systems, observers and celestial bodies are always written in uppercase.
 
