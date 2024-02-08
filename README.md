@@ -167,11 +167,11 @@ The selectable methods are:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Check the live script in the 'examples' folder for a detailed usage example.
-Here a brief example script is reported.
+> [!NOTE]
+> Here a brief example script is reported. Check the live script `Simulation Guidelines` in the `examples` folder for a detailed usage example.
 
 > [!WARNING]
-> Make sure to place the main script into the same wotking folder as the `arael` folder and add to path.
+> Make sure to place the main script into the same wotking folder as the `arael` folder and select `Add to Path/Selected Folder and Subfolders`.
 
 ![Example screenshot][example-screenshot]
 
