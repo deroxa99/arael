@@ -105,10 +105,10 @@ The selectable methods are:
 7. Into your script, call the function `arael` (type `help arael` in the command window for detailed input).
 8. The simulation will start and the output will be saved in the Workspace (type `help arael` in the command window for detailed output).
   > [!IMPORTANT]
-  > The input is caps sensitive. The names of reference systems, observers and celestial bodies are always written in uppercase.
+  > Input is caps sensitive. Names of reference systems, observers and celestial bodies are always written in uppercase.
 
   > [!NOTE]
-  > The input order is not fixed.
+  > Input order is not fixed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
